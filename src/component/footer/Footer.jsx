@@ -8,9 +8,9 @@ const Footer = () => {
         
         {/* Left: Logo + About */}
         <div className="footer-section">
-          <div className="footer-logo">GrowUpp</div>
+          <div className="footer-logo">Chitramcinema</div>
           <p className="footer-about">
-            GrowUpp helps individuals and startups scale fast with modern web solutions. 
+          ChitramCinema helps individuals and startups scale fast with modern web solutions. 
             We believe in innovation, simplicity, and impact.
           </p>
         </div>
@@ -28,13 +28,13 @@ const Footer = () => {
         {/* Right: Contact Info */}
         <div className="footer-section">
           <h4>Contact Us</h4>
-          <p>📞 +91 9876543210</p>
-          <p>✉️ support@growupp.com</p>
+          <p>✉️ chitramcinema@gmail.com
+          </p>
         </div>
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} GrowUpp. All rights reserved.
+        © {new Date().getFullYear()} Chitramcinema. All rights reserved.
       </div>
     </footer>
   );

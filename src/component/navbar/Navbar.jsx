@@ -4,8 +4,8 @@ import "./navbar.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">GrowUpp</div>
+    <nav className="navbar bg-[#F9FAFB]">
+      <Link to="/" className="navbar-logo">Chitramcinema</Link>
 
       <div className="navbar-links">
         <Link to="/">Home</Link>
@@ -14,8 +14,12 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-buttons">
-        <button className="btn btn-outline">Signup</button>
-        <button className="btn btn-filled">Login</button>
+      <button className="btn btn-filled">Subscribe</button>
+
+        <Link to="/login" className="btn btn-outline">
+          Login
+        </Link>
+
       </div>
     </nav>
   );
