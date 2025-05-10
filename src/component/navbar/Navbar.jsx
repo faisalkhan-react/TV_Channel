@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="navbar-buttons">
       <button className="btn btn-filled">Subscribe</button>
 
-        <Link to="/login" className="btn btn-outline">
+        <Link to="/login" className="btn btn-outline text-center">
           Login
         </Link>
 

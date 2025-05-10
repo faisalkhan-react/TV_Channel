@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import "./SignUp.css";
-// import { login } from "../redux/Auth/Action";
-// import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const Signup = () => {
-  // const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    phone: "",
   });
 
   const adddata = (e) => {
@@ -23,54 +16,73 @@ const Signup = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
-    <div className="sign_container">
-      <div className="sign_form">
-        <form>
-          <h4 className="text-black-700 text-xl font-bold flex justify-center p-4">
-            Login
-          </h4>
-          <hr />
+    <div className="w-[30%] border border-indigo-600 mt-10 mb-10 mx-auto flex flex-col items-center rounded-md p-6 ">
+      <form onSubmit={handleSubmit} className="w-[65%]">
+        <h4 className="text-black text-xl font-bold flex justify-center p-4">
+          Login
+        </h4>
+        <hr className="mb-4" />
 
-          <div className="form_data mt-2">
-            <label className="mb-4" htmlFor="tel">Mobile Number</label>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              maxLength={10}
-              value={formData.phone}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (/^\d{0,10}$/.test(value)) {
-                  setFormData({ ...formData, phone: value });
-                }
-              }}
-              placeholder="Enter 10-digit number"
-            />
-          </div>
+        <div className="flex flex-col justify-center mb-2">
+          <label htmlFor="tel" className="text-sm font-bold mb-4">
+            Mobile Number
+          </label>
+          <input
+            className="w-full h-6 rounded border border-indigo-600 mt-1 mb-2 px-2 py-4"
+            type="tel"
+            name="phone"
+            id="phone"
+            maxLength={10}
+            value={formData.phone}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d{0,10}$/.test(value)) {
+                setFormData({ ...formData, phone: value });
+              }
+            }}
+            placeholder="Enter 10-digit number"
+          />
+        </div>
 
-          {/* <div className="form_data">
-            <label htmlFor="password">OTP</label>
-            <input
-              type="password"
-              name="password"
-              onChange={adddata}
-              value={formData.password}
-              id="password"
-            />
-          </div> */}
+        {/* OTP input can be uncommented and used if needed */}
+        {/* <div className="flex flex-col justify-center mb-4">
+          <label htmlFor="password" className="text-sm font-bold mb-1">OTP</label>
+          <input
+            className="w-full h-6 rounded border border-indigo-600 mt-1 mb-2 px-2"
+            type="password"
+            name="password"
+            onChange={adddata}
+            value={formData.password}
+            id="password"
+          />
+        </div> */}
 
-          <button type="submit" className="signin_btn mb-2">
-            Send log-in code
-          </button>
-          {/*   
-            <div className="signin_info">
-              <p>Don't have an account?</p>
-              <NavLink to="/signup">Signup</NavLink>
-            </div> */}
-        </form>
-      </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base py-2 px-4 rounded mt-2 mb-4"
+        >
+          Get code
+        </button>
+
+        {/* Uncomment below to add signup info link */}
+        {/* <div className="flex justify-around mb-2">
+          <p className="text-sm font-semibold text-gray-800">
+            Don&apos;t have an account?
+          </p>
+          <NavLink
+            to="/signup"
+            className="text-sm font-bold text-indigo-600 hover:underline ml-1"
+          >
+            Signup
+          </NavLink>
+        </div> */}
+      </form>
     </div>
   );
 };

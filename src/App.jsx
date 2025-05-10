@@ -5,7 +5,7 @@ import Homepage from "./pages/Homepage.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import Footer from "./component/footer/Footer.jsx";
-import Signup from "./pages/SignUp.jsx";
+// import Signup from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx"
 
 function App() {
