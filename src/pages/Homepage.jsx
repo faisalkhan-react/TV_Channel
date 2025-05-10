@@ -1,5 +1,4 @@
 import React from "react";
-import "./Homepage.css";
 import bannerImage from "../assets/Kesari.jpg";
 import Slider from "../component/slider/Slider";
 import kesariImg from "../assets/Kesari.2019.jpg";
@@ -19,39 +18,45 @@ const Homepage = () => {
     { id: 4, url: bhojpuri },
     { id: 5, url: malayalam },
     { id: 6, url: tamil },
-    { id: 5, url: telugu },
+    { id: 19, url: telugu },
   ];
 
   const trendingImages = [
-    { id: 1, url: kesariImg },
-    { id: 2, url: kesariImg },
-    { id: 3, url: kesariImg },
-    { id: 4, url: kesariImg },
-    { id: 5, url: kesariImg },
-    { id: 6, url: kesariImg },
+    { id: 20, url: kesariImg },
     { id: 7, url: kesariImg },
     { id: 8, url: kesariImg },
     { id: 9, url: kesariImg },
+    { id: 10, url: kesariImg },
+    { id: 11, url: kesariImg },
+    { id: 12, url: kesariImg },
+    { id: 13, url: kesariImg },
+    { id: 14, url: kesariImg },
   ];
 
   const actionImages = [
-    { id: 4, url: kesariImg },
-    { id: 5, url: kesariImg },
+    { id: 15, url: kesariImg },
+    { id: 16, url: kesariImg },
   ];
 
   const comedyImages = [
-    { id: 6, url: kesariImg },
-    { id: 7, url: kesariImg },
+    { id: 17, url: kesariImg },
+    { id: 18, url: kesariImg },
   ];
 
   return (
-    <div className="homepage bg-[#F9FAFB]">
-      <section className="banner">
-        <div className="banner-content">
-          <img src={bannerImage} alt="Banner" className="banner-img" />
+    <div className="bg-[#f4f4f6] text-[#1e1e1e] font-['Inter'] min-h-screen ">
+      {/* Banner Section */}
+      <section className="w-screen overflow-hidden mt-2">
+        <div className="w-full">
+          <img
+            src={bannerImage}
+            alt="Banner"
+            className="w-full h-[350px] object-cover"
+          />
         </div>
       </section>
 
+      {/* Sliders */}
       <Slider title="Languages" images={languageImages} />
       <Slider title="Trending Now" images={trendingImages} />
       <Slider title="Action Movies" images={actionImages} />

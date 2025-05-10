@@ -7,6 +7,7 @@ import Contact from "./pages/Contact.jsx";
 import Footer from "./component/footer/Footer.jsx";
 // import Signup from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx"
+import OtpVerification from "./pages/OtpVerification.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           {/* <Route path="/signup" element={<Signup />} /> */}
           <Route path="/login" element={<Login />} />
+          <Route path="/verify-otp" element={<OtpVerification />} />
         </Routes>
         <Footer />
       </div>

@@ -22,25 +22,27 @@ const Slider = ({ title = "Category", images: propImages = [] }) => {
   }, [propImages]);
 
   const scrollLeft = () => {
-    sliderRef.current?.scrollBy({ left: -300, behavior: "smooth" });
+    sliderRef.current?.scrollBy({ left: -400, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    sliderRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+    sliderRef.current?.scrollBy({ left: 400, behavior: "smooth" });
   };
 
   const handleViewAll = () => {
     navigate("/view-all");
   };
 
+  const isLanguageSlider = title === "Languages";
+
   return (
-    <div className="w-full my-4 relative">
+    <div className="w-full my-4 px-4">
       {/* Header */}
-      <div className="flex justify-between items-center px-5 mb-[-40px]">
-        <h3 className="text-xl mb-4 font-semibold">{title}</h3>
-        {title !== "Languages" && (
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-2xl font-semibold text-[#1e1e1e]">{title}</h3>
+        {!isLanguageSlider && (
           <button
-            className="bg-blue-600 text-white px-4 py-1.5 rounded-md text-sm hover:bg-blue-700 transition"
+            className="bg-[#1e88e5] text-white px-4 py-2 rounded hover:bg-[#1565c0] transition"
             onClick={handleViewAll}
           >
             View All
@@ -49,41 +51,28 @@ const Slider = ({ title = "Category", images: propImages = [] }) => {
       </div>
 
       {/* Slider Container */}
-      <div className="relative max-w-full mx-auto overflow-hidden px-5 mt-6">
-        {/* Left Arrow */}
-        {/* <button
-          className="absolute top-1/2 -translate-y-1/2 left-6 bg-black/60 text-white rounded-full p-2 text-xl z-10"
-          onClick={scrollLeft}
-        >
-          &lt;
-        </button> */}
-
-        {/* Image Row */}
+      <div className="bg-white rounded-xl p-4 shadow hover:shadow-md transition duration-300">
         <div
           ref={sliderRef}
-          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth py-3 justify-around "
+          className="flex justify-evenly gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4"
         >
           {images.map((img) => (
-            <img
+            <div
               key={img.id}
-              src={img.url}
-              alt={`img-${img.id}`}
-              className={`${
-                title === "Languages"
-                  ? "w-[120px] h-[75px]"
-                  : "w-[300px] h-[200px]"
-              } object-fit object-center rounded-lg shadow-md shrink-0`}
-            />
+              className={`shrink-0 rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition-transform duration-300 ${
+                isLanguageSlider
+                  ? "w-[120px] h-[90px]"
+                  : "w-[360px] h-[220px]"
+              }`}
+            >
+              <img
+                src={img.url}
+                alt={`img-${img.id}`}
+                className="w-full h-full object-fill rounded-xl hover:scale-105 transition-transform duration-300"
+              />
+            </div>
           ))}
         </div>
-
-        {/* Right Arrow */}
-        {/* <button
-          className="absolute top-1/2 -translate-y-1/2 right-6 bg-black/60 text-white rounded-full p-2 text-xl z-10"
-          onClick={scrollRight}
-        >
-          &gt;
-        </button> */}
       </div>
     </div>
   );

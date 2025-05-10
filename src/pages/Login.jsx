@@ -1,90 +1,53 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
-  const [formData, setFormData] = useState({
-    phone: "",
-  });
-
-  const adddata = (e) => {
-    const { name, value } = e.target;
-    setFormData(() => {
-      return {
-        ...formData,
-        [name]: value,
-      };
-    });
-  };
+const Login = () => {
+  const [phone, setPhone] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (phone.length === 10) {
+      console.log("OTP sent to:", phone);
+      navigate("/verify-otp", { state: { phone } });
+    } else {
+      alert("Enter a valid 10-digit number");
+    }
   };
 
   return (
-    <div className="w-[30%] border border-indigo-600 mt-10 mb-10 mx-auto flex flex-col items-center rounded-md p-6 ">
+    <div className="w-[30%] border border-indigo-600 mt-10 mb-10 mx-auto flex flex-col items-center rounded-md p-6">
       <form onSubmit={handleSubmit} className="w-[65%]">
-        <h4 className="text-black text-xl font-bold flex justify-center p-4">
+        <h4 className="text-[#1e1e1e] text-xl font-bold flex justify-center p-4">
           Login
         </h4>
-        <hr className="mb-4" />
-
-        <div className="flex flex-col justify-center mb-2">
-          <label htmlFor="tel" className="text-sm font-bold mb-4">
+        <hr className="mb-4 text-[#1e1e1e]" />
+        <div className="flex flex-col mb-4">
+          <label htmlFor="phone" className="text-sm font-bold mb-2 text-[#1e1e1e]">
             Mobile Number
           </label>
           <input
-            className="w-full h-6 rounded border border-indigo-600 mt-1 mb-2 px-2 py-4"
+            className="text-[#1e1e1e] w-full h-6 rounded border border-indigo-600 px-2 py-4"
             type="tel"
-            name="phone"
             id="phone"
             maxLength={10}
-            value={formData.phone}
+            value={phone}
             onChange={(e) => {
               const value = e.target.value;
-              if (/^\d{0,10}$/.test(value)) {
-                setFormData({ ...formData, phone: value });
-              }
+              if (/^\d{0,10}$/.test(value)) setPhone(value);
             }}
             placeholder="Enter 10-digit number"
           />
         </div>
-
-        {/* OTP input can be uncommented and used if needed */}
-        {/* <div className="flex flex-col justify-center mb-4">
-          <label htmlFor="password" className="text-sm font-bold mb-1">OTP</label>
-          <input
-            className="w-full h-6 rounded border border-indigo-600 mt-1 mb-2 px-2"
-            type="password"
-            name="password"
-            onChange={adddata}
-            value={formData.password}
-            id="password"
-          />
-        </div> */}
-
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base py-2 px-4 rounded mt-2 mb-4"
+          className="cursor-pointer w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700"
         >
           Get code
         </button>
-
-        {/* Uncomment below to add signup info link */}
-        {/* <div className="flex justify-around mb-2">
-          <p className="text-sm font-semibold text-gray-800">
-            Don&apos;t have an account?
-          </p>
-          <NavLink
-            to="/signup"
-            className="text-sm font-bold text-indigo-600 hover:underline ml-1"
-          >
-            Signup
-          </NavLink>
-        </div> */}
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
