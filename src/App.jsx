@@ -8,6 +8,8 @@ import Footer from "./component/footer/Footer.jsx";
 // import Signup from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx"
 import OtpVerification from "./pages/OtpVerification.jsx";
+import Profile from "./pages/Profile.jsx";
+import AdminPanel from "./pages/AdminPanel.jsx";
 
 function App() {
   return (
@@ -22,6 +24,9 @@ function App() {
           {/* <Route path="/signup" element={<Signup />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<OtpVerification />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path ="/admin" element={<AdminPanel />} />
+          <Route path ="/profile" element={<Profile/>}/>
         </Routes>
         <Footer />
       </div>
