@@ -1,80 +1,93 @@
-import React from 'react';
-import { Tv, Users, Globe, Smartphone } from 'lucide-react';
+import React from "react";
+
+const sections = [
+  {
+    title: "About Us",
+    content: [
+      `At Chitramcinema, the online video streaming platform, we believe that for entertainment to come alive, you need to feel it.`,
+      `That’s where Chitramcinema brings in the comfort of your language! With features across original films, lifestyle shows, children’s programs, exclusive web series, and acclaimed plays — it's unlimited entertainment in the language that feels like home.`,
+    ],
+  },
+  {
+    title: "WATCH 100% WEB SERIES & POLITICAL SERIES PLATFORM",
+    content: [
+      `Chitramcinema is your own regional streaming service owned by Kishkinda Entertainment. Discover shows, movies, and more to create memorable moments.`,
+    ],
+  },
+  {
+    title: "Stories for Everyone",
+    content: [
+      `With stories from different worlds, in genres ranging from thrillers, mystery and crime to drama, comedy and romance; Chitramcinema has shown for everyone, from college going youngsters to professionals with families.`,
+      `You can watch Chitramcinema on Mobile phones, Tablet, Desktops, smart TVs, and other Streaming gadgets, anywhere, anytime at your command.`,
+    ],
+  },
+  {
+    title: "Multi-Language & Diverse Content",
+    content: [
+      `Chitramcinema offers an exhaustive array of content; with  live TV channels and web series content across the languages of English, Hindi, Malayalam, Tamil, Telugu, Kannada etc., making it a complete video destination for viewers. Our exhaustive selection of Multi language movies makes us the preferred destination for an avid cinema connoisseur.`,
+      `Our diverse movie library makes us the preferred choice for every cinema lover.`,
+    ],
+  },
+  {
+    title: "User-Friendly Experience",
+    content: [
+      `Using a series of logical algorithms and human creation, users at any stage of their interaction with Chitramcinema will discover content and see their experience evolve with their interaction patterns over time. Content composition on Chitramcinema is a result of a solicitous user experience approach and strong design principles that ensure that the user is not overwhelmed with the breadth of content available.`,
+      `We offer a comfortable and friendly user experience with highly evolved video streaming technology at amazing speed and crystal clear sounds. Language Navigation, Seamless Video playback, Smart Content Search & recommendation, option to choose video quality and much more create a video experience like no other. All you need is a compatible connected device. Tune into Chitramcinema now, in your language!`,
+      `All you need is a connected device to enjoy Chitramcinema — in your language.`,
+    ],
+  },
+  {
+    title: "Personalization",
+    content: [
+      `We know your taste, that’s why we give you personalized language & content recommendations. We also have Family Profile & Parental control to give power to you to set preferences as you like.`,
+    ],
+  },
+  {
+    title: "Access Platform",
+    content: [
+      <>
+        Visit us at{" "}
+        <a
+          href="https://chitramcinema.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline"
+        >
+          https://chitramcinema.com
+        </a>{" "}
+        or download our app from the{" "}
+        <a
+          href="https://play.google.com/store"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline"
+        >
+          Google Play Store
+        </a>{" "}
+        to access Chitramcinema on mobile, tablet, laptop, or desktop.
+      </>,
+    ],
+  },
+];
+
+const Section = ({ title, content }) => (
+  <>
+    <p className={`font-bold text-xl ${title === "About Us" ? "text-center" : ""}`}>
+      {title}
+    </p>
+    {content.map((text, i) => (
+      <p key={i}>{text}</p>
+    ))}
+  </>
+);
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-50 text-gray-800 py-12 px-6 md:px-16">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-extrabold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
-            About Chitramcinema
-          </h1>
-          <p className="mt-5 text-lg text-gray-600 max-w-3xl mx-auto">
-            Regional entertainment that speaks your language – feel the story, not just watch it.
-          </p>
-        </div>
-
-        {/* Intro Section */}
-        <div className="flex flex-col md:flex-row items-center mb-16 justify-center">
-          <div className="w-full md:w-1/2 ">
-            <h2 className="text-2xl font-semibold text-indigo-600 mb-4">Entertainment in Your Comfort Language</h2>
-            <p className="text-gray-700">
-              Chitramcinema brings unlimited entertainment — original features, kids' shows, lifestyle programs, and more — in the language that sounds like home.
-            </p>
-            <ul className="mt-4 list-disc list-inside text-sm text-gray-600">
-              <li>Exclusive web & political series</li>
-              <li>Regional content backed by Kishkinda Entertainment</li>
-              <li>Watch on mobile, TV, desktop, anytime</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Feature Cards using Flexbox */}
-        <div className="flex flex-wrap justify-center gap-6 text-center mb-16">
-          <div className="bg-white shadow-md rounded-xl p-6 w-full sm:w-5/12 lg:w-1/5 hover:shadow-xl transition">
-            <Globe className="mx-auto text-indigo-500 mb-4" size={36} />
-            <h3 className="font-semibold mb-2">Multi-language Content</h3>
-            <p className="text-sm text-gray-600">
-              Movies & series in Hindi, Tamil, Telugu, Kannada, Malayalam, and more.
-            </p>
-          </div>
-          <div className="bg-white shadow-md rounded-xl p-6 w-full sm:w-5/12 lg:w-1/5 hover:shadow-xl transition">
-            <Tv className="mx-auto text-indigo-500 mb-4" size={36} />
-            <h3 className="font-semibold mb-2">Device Compatibility</h3>
-            <p className="text-sm text-gray-600">
-              Works on smartphones, smart TVs, tablets, and desktops.
-            </p>
-          </div>
-          <div className="bg-white shadow-md rounded-xl p-6 w-full sm:w-5/12 lg:w-1/5 hover:shadow-xl transition">
-            <Users className="mx-auto text-indigo-500 mb-4" size={36} />
-            <h3 className="font-semibold mb-2">Family Profiles</h3>
-            <p className="text-sm text-gray-600">
-              Personalize content for each family member with parental control.
-            </p>
-          </div>
-          <div className="bg-white shadow-md rounded-xl p-6 w-full sm:w-5/12 lg:w-1/5 hover:shadow-xl transition">
-            <Smartphone className="mx-auto text-indigo-500 mb-4" size={36} />
-            <h3 className="font-semibold mb-2">Smart Recommendations</h3>
-            <p className="text-sm text-gray-600">
-              Discover stories tailored to your preferences over time.
-            </p>
-          </div>
-        </div>
-
-        {/* Access Section */}
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-indigo-700 mb-4">Access Anywhere, Anytime</h2>
-          <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-            Visit us at <a href="https://chitramcinema.com" className="text-blue-600 underline">chitramcinema.com</a> or download the app from Google Play Store.
-          </p>
-          <a
-            href="https://chitramcinema.com"
-            className="inline-block bg-indigo-600 text-white font-semibold px-6 py-3 rounded-full shadow hover:bg-indigo-700 transition"
-          >
-            Start Watching Now
-          </a>
-        </div>
+    <div className="px-20 pt-10 pb-10">
+      <div className="space-y-4 text-justify">
+        {sections.map((section, idx) => (
+          <Section key={idx} title={section.title} content={section.content} />
+        ))}
       </div>
     </div>
   );

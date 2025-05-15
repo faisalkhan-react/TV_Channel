@@ -38,8 +38,8 @@ const Slider = ({ title = "Category", images: propImages = [] }) => {
   return (
     <div className="w-full my-4 px-4">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-2xl font-semibold text-[#1e1e1e]">{title}</h3>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-semibold text-[#1e1e1e]">{title}</h3>
         {!isLanguageSlider && (
           <button
             className="bg-[#1e88e5] text-white px-4 py-2 rounded hover:bg-[#1565c0] transition"
@@ -68,7 +68,7 @@ const Slider = ({ title = "Category", images: propImages = [] }) => {
               <img
                 src={img.url}
                 alt={`img-${img.id}`}
-                className="w-full h-full object-fill rounded-xl hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-300"
               />
             </div>
           ))}

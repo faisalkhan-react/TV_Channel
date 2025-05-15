@@ -1,7 +1,8 @@
 import React from "react";
-import bannerImage from "../assets/Kesari.jpg";
+import bannerVideo from "../assets/Mufasa.mp4";
 import Slider from "../component/slider/Slider";
 import kesariImg from "../assets/Kesari.2019.jpg";
+import Infinity_war from "../assets/Infinity_war.jpg";
 import english from "../assets/english.jpg";
 import hindi from "../assets/hindi.jpg";
 import bhojpuri from "../assets/bhojpuri.jpg";
@@ -18,40 +19,42 @@ const Homepage = () => {
     { id: 4, url: bhojpuri },
     { id: 5, url: malayalam },
     { id: 6, url: tamil },
-    { id: 19, url: telugu },
+    { id: 7, url: telugu },
   ];
 
   const trendingImages = [
-    { id: 20, url: kesariImg },
-    { id: 7, url: kesariImg },
-    { id: 8, url: kesariImg },
+    { id: 8, url: Infinity_war },
     { id: 9, url: kesariImg },
     { id: 10, url: kesariImg },
     { id: 11, url: kesariImg },
     { id: 12, url: kesariImg },
     { id: 13, url: kesariImg },
     { id: 14, url: kesariImg },
+    { id: 15, url: kesariImg },
   ];
 
   const actionImages = [
-    { id: 15, url: kesariImg },
     { id: 16, url: kesariImg },
+    { id: 17, url: kesariImg },
   ];
 
   const comedyImages = [
-    { id: 17, url: kesariImg },
     { id: 18, url: kesariImg },
+    { id: 19, url: kesariImg },
   ];
 
   return (
-    <div className="bg-[#f4f4f6] text-[#1e1e1e] font-['Inter'] min-h-screen ">
+    <div className="bg-[#f4f4f6] text-[#1e1e1e] font-['Inter'] min-h-screen">
       {/* Banner Section */}
       <section className="w-screen overflow-hidden mt-2">
         <div className="w-full">
-          <img
-            src={bannerImage}
-            alt="Banner"
-            className="w-full h-[350px] object-cover"
+          <video
+            src={bannerVideo}
+            className="w-full h-[400px] object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
           />
         </div>
       </section>
