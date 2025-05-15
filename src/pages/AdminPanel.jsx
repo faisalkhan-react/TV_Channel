@@ -1,16 +1,48 @@
-import React, { useState } from "react";
-import { ImageIcon, VideoIcon } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ImageIcon, VideoIcon, ChevronDown, BookImage } from "lucide-react";
 
 export default function AdminUploadPanel() {
   const [title, setTitle] = useState("");
+  
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
+  const [banner, setBanner] = useState(null);
   const [video, setVideo] = useState(null);
+  const [openMenu, setOpenMenu] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const dropdownRef = useRef(null);
+
+
+
+  const toggleMenu = (menu) => {
+    setOpenMenu(openMenu === menu ? null : menu);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setOpenMenu(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !description || !thumbnail || !video) {
+    if (
+      !title ||
+      !description ||
+      !thumbnail ||
+      !video ||
+      !banner ||
+      !selectedLanguage ||
+      !selectedCategory
+    ) {
       alert("Please fill all fields!");
       return;
     }
@@ -19,14 +51,19 @@ export default function AdminUploadPanel() {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("thumbnail", thumbnail);
+    formData.append("banner", banner);
     formData.append("video", video);
+    formData.append("language", selectedLanguage);
+    formData.append("category", selectedCategory);
 
-    // Simulate upload
     console.log("Uploading...", {
       title,
       description,
       thumbnail,
+      banner,
       video,
+      selectedLanguage,
+      selectedCategory,
     });
 
     alert("Video uploaded successfully!");
@@ -39,10 +76,11 @@ export default function AdminUploadPanel() {
           Admin Video Upload
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" ref={dropdownRef}>
+          {/* Title */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
-              Video Title
+              Video Title <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -53,9 +91,10 @@ export default function AdminUploadPanel() {
             />
           </div>
 
+          {/* Description */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
-              Description
+              Description <span className="text-red-500">*</span>
             </label>
             <textarea
               className="w-full p-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -69,7 +108,7 @@ export default function AdminUploadPanel() {
           {/* Thumbnail Upload */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
-              Thumbnail Image
+              Thumbnail Image <span className="text-red-500">*</span>
             </label>
             <div className="flex items-center gap-3">
               <label
@@ -91,9 +130,37 @@ export default function AdminUploadPanel() {
               />
             </div>
           </div>
+
+          {/* Banner Upload */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
-              Video File
+              Banner Image <span className="text-red-500">*</span>
+            </label>
+            <div className="flex items-center gap-3">
+              <label
+                htmlFor="banner-upload"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 border rounded-xl cursor-pointer transition"
+              >
+                <BookImage className="w-5 h-5 text-gray-600" />
+                <span className="text-gray-700">Choose Banner</span>
+              </label>
+              {banner && (
+                <span className="text-sm text-green-600">{banner.name}</span>
+              )}
+              <input
+                id="banner-upload"
+                type="file"
+                accept="image/*,video/*"
+                onChange={(e) => setBanner(e.target.files[0])}
+                className="hidden"
+              />
+            </div>
+          </div>
+
+          {/* Video Upload */}
+          <div>
+            <label className="block mb-1 font-semibold text-gray-700">
+              Video File <span className="text-red-500">*</span>
             </label>
             <div className="flex items-center gap-3">
               <label
@@ -116,9 +183,90 @@ export default function AdminUploadPanel() {
             </div>
           </div>
 
+          {/* Dropdowns */}
+          <div className="mt-8 space-y-4 flex gap-10">
+            {/* Language Dropdown */}
+            <div className="relative w-1/2">
+              <div
+                onClick={() => toggleMenu("language")}
+                className="cursor-pointer p-2 bg-gray-200 rounded flex justify-between items-center"
+              >
+                {selectedLanguage || (
+                  <span className="text-gray-700">
+                    Select Language <span className="text-red-500">*</span>
+                  </span>
+                )}
+                <ChevronDown />
+              </div>
+              {openMenu === "language" && (
+                <div className="absolute mt-1 bg-white border rounded shadow p-2 cursor-pointer w-full z-10">
+                  {[
+                    "English",
+                    "Hindi",
+                    "Telugu",
+                    "Tamil",
+                    "Kannada",
+                    "Bhojpuri",
+                    "Malayalam",
+                  ].map((lang) => (
+                    <div
+                      key={lang}
+                      onClick={() => {
+                        setSelectedLanguage(lang);
+                        setOpenMenu(null);
+                      }}
+                      className="hover:bg-gray-100 p-1 rounded"
+                    >
+                      {lang}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Category Dropdown */}
+            <div className="relative w-1/2">
+              <div
+                onClick={() => toggleMenu("category")}
+                className="cursor-pointer p-2 bg-gray-200 rounded flex justify-between items-center"
+              >
+                {selectedCategory || (
+                  <span className="text-gray-700">
+                    Select Category <span className="text-red-500">*</span>
+                  </span>
+                )}
+                <ChevronDown />
+              </div>
+              {openMenu === "category" && (
+                <div className="absolute mt-1 bg-white border rounded shadow p-2 cursor-pointer w-full z-10">
+                  {[
+                    "Action",
+                    "Sci-Fi",
+                    "Comedy",
+                    "Romance",
+                    "Horror",
+                    "Drama",
+                    "Fantasy",
+                  ].map((cat) => (
+                    <div
+                      key={cat}
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        setOpenMenu(null);
+                      }}
+                      className="hover:bg-gray-100 p-1 rounded"
+                    >
+                      {cat}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
           <button
             type="submit"
-            className=" cursor-pointer w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300"
           >
             Upload Video
           </button>
