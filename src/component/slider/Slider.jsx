@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Slider = ({ title = "Category", images: propImages = [] }) => {
   const sliderRef = useRef(null);
@@ -62,13 +63,13 @@ const Slider = ({ title = "Category", images: propImages = [] }) => {
               className={`shrink-0 rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition-transform duration-300 ${
                 isLanguageSlider
                   ? "w-[120px] h-[90px]"
-                  : "w-[360px] h-[220px]"
+                  : "w-[320px] aspect-video" // This ensures 16:9 ratio, automatically adjusts height
               }`}
             >
               <img
                 src={img.url}
                 alt={`img-${img.id}`}
-                className="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
           ))}

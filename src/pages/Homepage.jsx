@@ -62,6 +62,7 @@ const Homepage = () => {
       {/* Sliders */}
       <Slider title="Languages" images={languageImages} />
       <Slider title="Trending Now" images={trendingImages} />
+      
       <Slider title="Action Movies" images={actionImages} />
       <Slider title="Romance" images={comedyImages} />
     </div>
