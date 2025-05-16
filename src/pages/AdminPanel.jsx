@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ImageIcon, VideoIcon, ChevronDown, BookImage } from "lucide-react";
+import axios from "axios";
 
 export default function AdminUploadPanel() {
   const [title, setTitle] = useState("");
-  
+
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [banner, setBanner] = useState(null);
@@ -14,26 +15,14 @@ export default function AdminUploadPanel() {
 
   const dropdownRef = useRef(null);
 
-
-
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
-  const handleOutsideClick = (e) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setOpenMenu(null);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate before proceeding
     if (
       !title ||
       !description ||
@@ -47,28 +36,50 @@ export default function AdminUploadPanel() {
       return;
     }
 
+    // Create FormData
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("thumbnail", thumbnail);
+    formData.append("thumbnail", thumbnail); // must be File type
     formData.append("banner", banner);
     formData.append("video", video);
     formData.append("language", selectedLanguage);
     formData.append("category", selectedCategory);
 
-    console.log("Uploading...", {
-      title,
-      description,
-      thumbnail,
-      banner,
-      video,
-      selectedLanguage,
-      selectedCategory,
-    });
+    try {
+      // Option 1: Using fetch with proper headers
+      const response = await fetch(
+        "https://tv-server-1.onrender.com/api/upload",
+        {
+          method: "POST",
+          body: formData,
+          // Don't set Content-Type header when sending FormData
+          // The browser will automatically set the correct Content-Type with boundary
+        }
+      );
 
-    alert("Video uploaded successfully!");
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Upload response:", result);
+
+      alert("Video uploaded successfully!");
+
+      // Clear form
+      setTitle("");
+      setDescription("");
+      setThumbnail(null);
+      setBanner(null);
+      setVideo(null);
+      setSelectedLanguage("");
+      setSelectedCategory("");
+    } catch (error) {
+      console.error("Upload failed:", error);
+      alert(`Video upload failed: ${error.message}`);
+    }
   };
-
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-md">
@@ -264,9 +275,7 @@ export default function AdminUploadPanel() {
             </div>
           </div>
 
-          <button
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300"
-          >
+          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300">
             Upload Video
           </button>
         </form>
