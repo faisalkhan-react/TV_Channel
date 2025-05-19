@@ -15,11 +15,14 @@ const Navbar = () => {
         <Link to="/" className="hover:text-[#1e88e5] transition">
           Home
         </Link>
-        <Link to="/about" className="hover:text-[#1e88e5] transition">
-          About
+        <Link to="/movies" className="hover:text-[#1e88e5] transition">
+          Movies
         </Link>
-        <Link to="/contact" className="hover:text-[#1e88e5] transition">
-          Contact
+        <Link to="/political-series" className="hover:text-[#1e88e5] transition">
+          Political Series 
+        </Link>
+        <Link to="/health&fitness" className="hover:text-[#1e88e5] transition">
+          Health & Fitness Series
         </Link>
       </div>
 
