@@ -17,14 +17,7 @@ const AdminLogin = () => {
         data
       );
 
-      const token = res.data.token;
-
-      // Save token to localStorage
-      localStorage.setItem("adminToken", token);
-
-      // Clear the form
-      setEmail("");
-      setPassword("");
+    
 
       // Navigate to admin dashboard
       navigate("/admin/dashboard");
