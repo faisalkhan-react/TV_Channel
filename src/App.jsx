@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./component/navbar/Navbar.jsx";
+import Navbar from "./components/navbar/Navbar.jsx";
 import Homepage from "./pages/Homepage.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-import Footer from "./component/footer/Footer.jsx";
+import Footer from "./components/footer/Footer.jsx";
 // import Signup from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx"
 import OtpVerification from "./pages/OtpVerification.jsx";
@@ -14,6 +14,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import TermsAndConditions from "./pages/TermsAndConditions .jsx";
 import Subscribe from "./pages/Subscribe.jsx";
 import RefundAndCancellationPolicy from "./pages/RefundAndCancellationPolicy.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<OtpVerification />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path ="/admin" element={<AdminPanel />} />
+          <Route path ="/admin" element={<AdminLogin />} />
+          <Route path ="/admin/dashboard" element={<AdminPanel />} />
         </Routes>
         <Footer />
       </div>

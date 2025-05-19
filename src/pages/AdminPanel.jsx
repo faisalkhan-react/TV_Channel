@@ -275,11 +275,19 @@ export default function AdminUploadPanel() {
             </div>
           </div>
 
-          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300">
+          <button className="cursor-pointer w-full bg-blue-600 text-white py-2 px-4 rounded-xl hover:bg-blue-700 transition duration-300">
             Upload Video
           </button>
         </form>
+
+
+
+
       </div>
+
+
+
+      
     </div>
   );
 }

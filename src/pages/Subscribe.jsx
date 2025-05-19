@@ -1,5 +1,5 @@
 import React from "react";
-import SubsCard from "../component/subsCard/SubsCard";
+import SubsCard from "../components/subsCard/SubsCard";
 import { data } from "react-router-dom";
 
 const Subscribe = () => {
