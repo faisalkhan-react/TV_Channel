@@ -27,7 +27,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://tv-server-1.onrender.com/api/send-otp",
+        "https://tv-server-1.onrender.com/api/user/send-otp",
         {
           method: "POST",
           headers: {
@@ -65,7 +65,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://tv-server-1.onrender.com/api/verify-otp",
+        "https://tv-server-1.onrender.com/api/user/verify-otp",
         {
           method: "POST",
           headers: {

@@ -15,11 +15,16 @@ import TermsAndConditions from "./pages/TermsAndConditions .jsx";
 import Subscribe from "./pages/Subscribe.jsx";
 import RefundAndCancellationPolicy from "./pages/RefundAndCancellationPolicy.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
+import AdminUpload from './components/AdminUpload.jsx'
 
 function App() {
+
   return (
     <Router>
-      <div className="App">
+
+      
+      <div className="App relative">
+        <AdminUpload />
         <Navbar />
 
         <Routes>
