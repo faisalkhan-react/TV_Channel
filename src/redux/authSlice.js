@@ -15,6 +15,7 @@ const authSlice = createSlice({
       state.phoneNumber = action.payload;
     },
     logout(state) {
+      localStorage.removeItem("user");
       state.isAuthenticated = false;
       state.phoneNumber = "";
     },
