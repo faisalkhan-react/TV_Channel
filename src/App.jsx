@@ -21,7 +21,7 @@ import ProtectRoute from "./components/ProtectedRoute.jsx";
 function App() {
   return (
     <Router>
-      <div className="App relative">
+      <div className="App">
         <AdminUpload />
         <Navbar />
 
