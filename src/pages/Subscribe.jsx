@@ -1,57 +1,52 @@
 import React from "react";
 import SubsCard from "../components/subsCard/SubsCard";
 import { data } from "react-router-dom";
+import { subData } from '../constants/constant.js'
+import {createCheckoutSession} from "../api/subscription.js";
+import {api} from "../api/config.js";
 
 const Subscribe = () => {
-  const subData = [
-    {
-      plan: "Basic Plan",
-      quality: "HD 720P",
-      device: "Mobile",
-      price: "99",
-      month:"3 month",
-      planId : ""
-    },
-     {
-      plan: "Standard Plan",
-      quality: "Full HD 1080p",
-      device: "Mobile & Website",
-      price: "299",
-      month:"3 month",
-      planId : ""
-    }, {
-      plan: "Premium Plan",
-      quality: "2K",
-      device: "Mobile, Website, TAB and Smart TV",
-      price: "999",
-      month:"6 months",
-      planId : ""
-    }, {
-      plan: "Gold Plan",
-      quality: " Ultra HD 4K",
-      device: " Mobile, Website, TAB and Smart TV",
-      price: "1200",
-      month: "1 year",
-      planId : "plan_QX8Rn54YOXX7Mw"
-    },
 
-  ];
+  const handleCreateCheckoutSession = (planKey) => {
+    // Handle the click event for the subscription card
+    console.log(`Clicked on plan: ${planKey}`);
+
+    createCheckoutSession(planKey)
+      .then(({ data }) => {
+        console.log("Checkout session created:", data);
+
+        const options = {
+          key: data.key,
+          amount: data.amount,
+          currency: data.currency,
+          name: "Subscription",
+          description: "Subscription for TV",
+          order_id: data.orderId,
+          handler: async function (response) {
+            await api.post('/api/checkout/verify-payment')
+          }
+        }
+      })
+  }
+
 
   return (
     <div className=" p-10 text-2xl text-center">
       <p className="mb-10 font-bold">Choose the Best Plan for You</p>
       <div className=" flex items-center justify-evenly">
-       {subData.map((data,i)=>(
+        {subData.map((data, i) => (
 
-        <SubsCard 
-        key={i}
-        plan={data.plan}
-        quality={data.quality}
-        device={data.device}
-        price={data.price}
-        month={data.month}
-        />
-       ))} 
+          <SubsCard
+            key={i}
+            plan={data.plan}
+            quality={data.quality}
+            device={data.device}
+            price={data.price}
+            month={data.month}
+            planKey={data.planKey}
+            handleClick={handleCreateCheckoutSession}
+          />
+        ))}
       </div>
     </div>
   );
