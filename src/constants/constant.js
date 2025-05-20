@@ -1,0 +1,1 @@
+export const BASE_URL = "https://tv-server-1.onrender.com";

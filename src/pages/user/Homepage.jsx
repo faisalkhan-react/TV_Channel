@@ -1,7 +1,7 @@
 import React from "react";
-import bannerVideo from "../assets/Mufasa.mp4";
-import Slider from "../components/slider/Slider";
-import Languages from "./Languages";
+import bannerVideo from "../../assets/Mufasa.mp4";
+import Slider from "../../components/slider/Slider";
+import Languages from "../Languages";
 
 const Homepage = () => {
   return (

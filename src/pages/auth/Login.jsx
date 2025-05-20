@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/authSlice";
+import { login } from "../../redux/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ const Login = () => {
             Mobile Number
           </label>
           <div className="flex items-center border border-indigo-600 rounded">
-            <span className="px-3 py-4 bg-gray-200 text-[#1e1e1e] rounded-l">
+            <span className="px-2 py-4 bg-gray-200 text-[#1e1e1e] rounded-l">
               +91
             </span>
             <input

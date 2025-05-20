@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar.jsx";
-import Homepage from "./pages/Homepage.jsx";
-import About from "./pages/About.jsx";
-import Contact from "./pages/Contact.jsx";
+import Homepage from "./pages//user/Homepage.jsx";
+import About from "./pages/user/About.jsx";
+import Contact from "./pages/user/Contact.jsx";
 import Footer from "./components/footer/Footer.jsx";
 // import Signup from "./pages/SignUp.jsx";
-import Login from "./pages/Login.jsx"
-import OtpVerification from "./pages/OtpVerification.jsx";
+import Login from "./pages/auth/Login.jsx"
+import OtpVerification from "./pages/auth/OtpVerification.jsx";
 import Profile from "./pages/Profile.jsx";
-import AdminPanel from "./pages/AdminPanel.jsx";
-import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
-import TermsAndConditions from "./pages/TermsAndConditions .jsx";
+import AdminPanel from "./pages/admin/AdminPanel.jsx";
+import PrivacyPolicy from "./pages/user/PrivacyPolicy.jsx";
+import TermsAndConditions from "./pages/user/TermsAndConditions .jsx";
 import Subscribe from "./pages/Subscribe.jsx";
-import RefundAndCancellationPolicy from "./pages/RefundAndCancellationPolicy.jsx";
-import AdminLogin from "./pages/AdminLogin.jsx";
+import RefundAndCancellationPolicy from "./pages/user/RefundAndCancellationPolicy.jsx";
+import AdminLogin from "./pages//admin/AdminLogin.jsx";
 
 function App() {
   return (
