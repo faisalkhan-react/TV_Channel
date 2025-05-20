@@ -12,7 +12,7 @@ const Subscribe = () => {
     console.log(`Clicked on plan: ${planKey}`);
 
     createCheckoutSession(planKey)
-      .then(({ data }) => {
+      .then((data ) => {
         console.log("Checkout session created:", data);
 
         const options = {
