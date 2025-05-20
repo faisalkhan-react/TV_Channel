@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
+import {LoginApi} from '../api/user.js'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,17 +26,16 @@ const Login = () => {
     e.preventDefault();
     const fullPhoneNumber = "+91" + phone.phoneNumber.trim();
 
+    // axios - login
+
     try {
-      const response = await fetch(
-        "https://tv-server-1.onrender.com/api/user/send-otp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ phoneNumber: fullPhoneNumber }),
-        }
-      );
+      const response = await fetch("https://tv-server-1.onrender.com/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phoneNumber: fullPhoneNumber }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -84,6 +84,7 @@ const Login = () => {
         setSuccessMessage("✅ OTP verified successfully!");
         setError("");
         dispatch(login(fullPhoneNumber)); // Redux login
+        localStorage.setItem('user', data)
         navigate("/"); // Redirect to home or any other page
       } else {
         setError(data.message || "❌ Incorrect OTP");
