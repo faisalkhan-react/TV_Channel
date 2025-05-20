@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    isOpened: false
+    isOpened: true
 }
 
 

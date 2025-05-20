@@ -3,7 +3,15 @@ import { ImageIcon, FileVideo2 } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const AdminUpload = () => {
-  const isOpend = useSelector(state => state?.modal)
+  const isOpened = useSelector(state => state?.modal)
+
+  const bannerInputRef = useRef(null);
+  const thumbnailInputRef = useRef(null);
+
+  const handleClick = (inputRef) => {
+    inputRef.current.click();
+  };
+  
   return (
     isOpened && (
       <div className=" bg-[#0F172A] text-white absolute top-0 p-2 left-0 z-10 w-screen h-screen flex justify-center items-center ">
