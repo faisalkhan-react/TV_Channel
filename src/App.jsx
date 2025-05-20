@@ -25,7 +25,7 @@ function App() {
       
       <div className="App relative">
         <AdminUpload />
-        <Navbar />
+        {/* <Navbar />
 
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -35,14 +35,13 @@ function App() {
           <Route path="/tnc" element={<TermsAndConditions/>}/>
           <Route path="/refund-and-cancellation" element={<RefundAndCancellationPolicy/>}/>
           <Route path="/contact" element={<Contact />} />
-          {/* <Route path="/signup" element={<Signup />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<OtpVerification />} />
           <Route path="/profile" element={<Profile />} />
           <Route path ="/admin" element={<AdminLogin />} />
           <Route path ="/admin/dashboard" element={<AdminPanel />} />
         </Routes>
-        <Footer />
+        <Footer /> */}
       </div>
     </Router>
   );e
