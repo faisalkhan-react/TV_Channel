@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar.jsx";
 import Homepage from "./pages/user/Homepage.jsx";
 import About from "./pages/user/About.jsx";
@@ -18,64 +18,57 @@ import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import ProtectRoute from "./components/ProtectedRoute.jsx";
 import AdminUpload from "./components/AdminUpload.jsx";
 
+
 function App() {
+  const location = useLocation();
+  const isAdminPanel = location.pathname.startsWith("/admin");
   return (
-    <Router>
-      <div className="App">
-        <AdminUpload />
-        <Navbar />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              // <ProtectRoute>
-                <Homepage />
-              // </ProtectRoute>
-            }
-          />
-          <Route path="/about" element={<About />} />
-          <Route path="/subscribe" element={<Subscribe />} />
-          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/tnc" element={<TermsAndConditions />} />
-          <Route
-            path="/refund-and-cancellation"
-            element={<RefundAndCancellationPolicy />}
-          />
-          <Route path="/contact" element={<Contact />} />
+    <div className="App">
+      <AdminUpload />
+      {!isAdminPanel && <Navbar />}
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify-otp" element={<OtpVerification />} />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/subscribe" element={<Subscribe />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/tnc" element={<TermsAndConditions />} />
+        <Route path="/refund-and-cancellation" element={<RefundAndCancellationPolicy />} />
+        <Route path="/contact" element={<Contact />} />
 
-          {/*  Admin routes */}
-          <Route
-            path="/profile"
-            element={
-              <ProtectRoute>
-                <Profile />
-              </ProtectRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <ProtectRoute>
-                <AdminLogin />
-              </ProtectRoute>
-            }
-          />
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectRoute>
-                <AdminPanel />
-              </ProtectRoute>
-            }
-          />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify-otp" element={<OtpVerification />} />
+
+        {/*  Admin routes */}
+        <Route
+          path="/profile"
+          element={
+            // <ProtectRoute>
+            <Profile />
+            // </ProtectRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            // <ProtectRoute>
+            <AdminLogin />
+            // </ProtectRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            // <ProtectRoute>
+            <AdminPanel />
+            // </ProtectRoute>
+          }
+        />
+      </Routes>
+      <Footer />
+    </div>
+
   );
 }
 
