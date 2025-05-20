@@ -9,26 +9,30 @@ const Subscribe = () => {
       quality: "HD 720P",
       device: "Mobile",
       price: "99",
-      month:"3 month"
+      month:"3 month",
+      planId : ""
     },
      {
       plan: "Standard Plan",
       quality: "Full HD 1080p",
       device: "Mobile & Website",
       price: "299",
-      month:"3 month"
+      month:"3 month",
+      planId : ""
     }, {
       plan: "Premium Plan",
       quality: "2K",
       device: "Mobile, Website, TAB and Smart TV",
       price: "999",
-      month:"6 months"
+      month:"6 months",
+      planId : ""
     }, {
       plan: "Gold Plan",
       quality: " Ultra HD 4K",
       device: " Mobile, Website, TAB and Smart TV",
       price: "1200",
-      month: "1 year"
+      month: "1 year",
+      planId : "plan_QX8Rn54YOXX7Mw"
     },
 
   ];

@@ -279,15 +279,7 @@ export default function AdminUploadPanel() {
             Upload Video
           </button>
         </form>
-
-
-
-
       </div>
-
-
-
-      
     </div>
   );
 }
