@@ -7,21 +7,46 @@ import { useState } from "react";
 const Navbar = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, phoneNumber } = useSelector((state) => state.auth);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="bg-[#0F172A] text-white p-4 sm:flex flex justify-between items-center z-50">
+    <div className="p-4 flex justify-between items-center z-50">
       {/* Logo */}
-      <div>
+      <div className="">
         <h2 className="font-semibold text-lg">
           <Link to="/">Chitramcinema</Link>
         </h2>
       </div>
 
+      <div className="hidden lg:flex md:flex-1 justify-center items-center ">
+        <nav className="flex gap-4 text-md">
+          <Link to="/">Home</Link>
+          <Link to="/movies">Movies</Link>
+          <Link to="/political-series">Political Series</Link>
+          <Link to="/health&fitness">Health & Fitness</Link>
+        </nav>
+      </div>
+
+      <div className="">
+        <button className="mr-2">
+          <div className="flex items-center bg-gray-200 rounded-md p-1 px-2">
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              className="text-sm text-gray-500 outline-none"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search size={18} />
+          </div>
+        </button>
+      </div>
+
       {/* Nav Sections */}
       {isSidebarOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50">
+        <div className="fixed inset-0 bg-black/50 z-50 text-white">
           <div className="w-64 bg-[#0F172A] h-full p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold">Menu</h2>
@@ -58,22 +83,26 @@ const Navbar = () => {
       )}
 
       {/* Buttons */}
-      <div className="space-x-2">
-        <button className="hidden sm:block bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
-          <Link to="/subscribe">Subscribe</Link>
-        </button>
-      </div>
-      <div>
-        <button className="bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
+
+      <div className="button flex justify-end items-center gap-2 text-white">
+        <div className="space-x-2">
+          <button className="hidden sm:block bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
+            <Link to="/subscribe">Subscribe</Link>
+          </button>
+        </div>
+
+        <button className="bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold ">
           Login
         </button>
+        <div className="">
+          <button
+            className="lg:hidden flex justify-center items-center text-black"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       </div>
-      <button>
-        <Search className="w-6 h-6" />
-      </button>
-      <button onClick={() => setIsSidebarOpen(true)}>
-        <Menu className="w-6 h-6" />
-      </button>
     </div>
   );
 };
