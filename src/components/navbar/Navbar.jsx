@@ -1,62 +1,80 @@
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
 import { Link } from "react-router-dom";
+import { Menu, X, Search } from "lucide-react";
+import { useState } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, phoneNumber } = useSelector((state) => state.auth);
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <nav className="flex justify-between items-center px-8 py-3 bg-white shadow-sm border-b border-gray-200">
-      <Link to="/" className="text-2xl font-bold text-[#1e88e5]">
-        Chitramcinema
-      </Link>
-      <div className="flex gap-6 text-[#555] font-semibold">
-        <Link to="/" className="hover:text-[#1e88e5] transition">
-          Home
-        </Link>
-        <Link to="/movies" className="hover:text-[#1e88e5] transition">
-          Movies
-        </Link>
-        <Link to="/political-series" className="hover:text-[#1e88e5] transition">
-          Political Series 
-        </Link>
-        <Link to="/health&fitness" className="hover:text-[#1e88e5] transition">
-          Health & Fitness Series
-        </Link>
+    <div className="bg-[#0F172A] text-white p-4 sm:flex flex justify-between items-center z-50">
+      {/* Logo */}
+      <div>
+        <h2 className="font-semibold text-lg">
+          <Link to="/">Chitramcinema</Link>
+        </h2>
       </div>
 
-      <div className="flex gap-3 items-center">
-        <div>
-          <Link to="/subscribe">
-          <button className="bg-[#1e88e5] text-white px-4 py-2 text-sm font-semibold rounded hover:bg-[#1565c0] transition">
-            Subscribe
-          </button>
-          </Link>
-        </div>
-        {isAuthenticated ? (
-          <div className="flex items-center gap-2 px-4 py-2 border rounded border-green-500 text-green-600 bg-green-50 font-medium">
-            <span className="bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center">
-              {phoneNumber.slice(-2)}
-            </span>
-            {phoneNumber}
-            <button
-              onClick={() => dispatch(logout())}
-              className="ml-2 text-red-500 hover:text-red-700 text-sm"
-            >
-              Logout
-            </button>
+      {/* Nav Sections */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 bg-black/50 z-50">
+          <div className="w-64 bg-[#0F172A] h-full p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold">Menu</h2>
+              <button onClick={() => setIsSidebarOpen(false)}>
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <nav className="flex flex-col gap-4 text-md  ">
+              <Link to="/" onClick={() => setIsSidebarOpen(false)}>
+                Home
+              </Link>
+              <Link to="/movies" onClick={() => setIsSidebarOpen(false)}>
+                Movies
+              </Link>
+              <Link
+                to="/political-series"
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                Political Series
+              </Link>
+              <Link
+                to="/health&fitness"
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                Health & Fitness
+              </Link>
+              <button className="sm:hidden bg-blue-500 p-2 rounded text-xs font-semibold">
+                <Link to="/subscribe">Subscribe</Link>
+              </button>
+            </nav>
           </div>
-        ) : (
-          <Link
-            to="/login"
-            className="border border-[#1e88e5] text-[#1e88e5] px-4 py-2 text-sm font-semibold rounded hover:bg-[#e3f2fd] transition"
-          >
-            Login
-          </Link>
-        )}
+        </div>
+      )}
+
+      {/* Buttons */}
+      <div className="space-x-2">
+        <button className="hidden sm:block bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
+          <Link to="/subscribe">Subscribe</Link>
+        </button>
       </div>
-    </nav>
+      <div>
+        <button className="bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
+          Login
+        </button>
+      </div>
+      <button>
+        <Search className="w-6 h-6" />
+      </button>
+      <button onClick={() => setIsSidebarOpen(true)}>
+        <Menu className="w-6 h-6" />
+      </button>
+    </div>
   );
 };
 
