@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/authSlice";
+import { login } from "../../redux/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,17 +25,16 @@ const Login = () => {
     e.preventDefault();
     const fullPhoneNumber = "+91" + phone.phoneNumber.trim();
 
+    // axios - login
+
     try {
-      const response = await fetch(
-        "https://tv-server-1.onrender.com/api/send-otp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ phoneNumber: fullPhoneNumber }),
-        }
-      );
+      const response = await fetch("https://tv-server-1.onrender.com/api/user/send-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phoneNumber: fullPhoneNumber }),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -65,7 +64,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://tv-server-1.onrender.com/api/verify-otp",
+        "https://tv-server-1.onrender.com/api/user/verify-otp",
         {
           method: "POST",
           headers: {
@@ -84,6 +83,7 @@ const Login = () => {
         setSuccessMessage("✅ OTP verified successfully!");
         setError("");
         dispatch(login(fullPhoneNumber)); // Redux login
+        localStorage.setItem('user', JSON.stringify(data)); // Store user data in local storage
         navigate("/"); // Redirect to home or any other page
       } else {
         setError(data.message || "❌ Incorrect OTP");
@@ -111,7 +111,7 @@ const Login = () => {
             Mobile Number
           </label>
           <div className="flex items-center border border-indigo-600 rounded">
-            <span className="px-3 py-4 bg-gray-200 text-[#1e1e1e] rounded-l">
+            <span className="px-2 py-4 bg-gray-200 text-[#1e1e1e] rounded-l">
               +91
             </span>
             <input

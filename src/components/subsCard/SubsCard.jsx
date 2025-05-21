@@ -1,6 +1,6 @@
 import React from "react";
 
-const SubsCard = ({ plan, quality, device, price, month }) => {
+const SubsCard = ({ plan, quality, device, price, month, planKey, handleClick }) => {
   return (
     <div className="flex justify-center">
       <div className="w-72 h-90 rounded-2xl shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300 bg-white hover:bg-gradient-to-br from-[#080137] to-[#442bc3] text-black hover:text-white p-4 flex flex-col">
@@ -19,8 +19,10 @@ const SubsCard = ({ plan, quality, device, price, month }) => {
 
         {/* Button */}
         <div className="flex justify-center mt-4">
-          <button className="cursor-pointer font-bold bg-gradient-to-br from-blue-800 to-purple-600 text-white px-6 py-2 rounded-xl transition duration-200 hover:brightness-110">
-            Pay {price}
+          <button 
+            onClick={() => handleClick(planKey, plan, device)}
+              className="cursor-pointer bg-gradient-to-br from-blue-800 to-purple-600 text-white px-6 py-2 rounded-xl transition duration-200 hover:brightness-110">
+            Pay Rs {price}
           </button>
         </div>
       </div>

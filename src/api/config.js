@@ -1,8 +1,8 @@
 import axios from "axios";
+import { BASE_URL } from "../constants/constant.js";
 
-const token = localStorage.getItem("token");
-const BASE_URL = "https://tv-server-1.onrender.com";
-
+const user = localStorage.getItem("user");
+const token = user ? JSON.parse(user).token : null;
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
