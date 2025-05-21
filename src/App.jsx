@@ -1,12 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./components/navbar/Navbar.jsx";
 import Homepage from "./pages/user/Homepage.jsx";
 import About from "./pages/user/About.jsx";
 import Contact from "./pages/user/Contact.jsx";
 import Footer from "./components/footer/Footer.jsx";
 // import Signup from "./pages/SignUp.jsx";
-import Login from "./pages/auth/Login.jsx"
+import Login from "./pages/auth/Login.jsx";
 import OtpVerification from "./pages/auth/OtpVerification.jsx";
 import Profile from "./pages/Profile.jsx";
 import AdminPanel from "./pages/admin/AdminPanel.jsx";
@@ -16,14 +21,13 @@ import Subscribe from "./pages/Subscribe.jsx";
 import RefundAndCancellationPolicy from "./pages/user/RefundAndCancellationPolicy.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import ProtectRoute from "./components/ProtectedRoute.jsx";
-import AdminUpload from "./components/AdminUpload.jsx";
-
+import AdminUpload from "./pages/admin/components/AdminUpload.jsx";
+import AdminMovies from "./pages/admin/AdminMovies.jsx";
 
 function App() {
   const location = useLocation();
   const isAdminPanel = location.pathname.startsWith("/admin");
   return (
-
     <div className="App">
       <AdminUpload />
       {!isAdminPanel && <Navbar />}
@@ -34,7 +38,10 @@ function App() {
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/tnc" element={<TermsAndConditions />} />
-        <Route path="/refund-and-cancellation" element={<RefundAndCancellationPolicy />} />
+        <Route
+          path="/refund-and-cancellation"
+          element={<RefundAndCancellationPolicy />}
+        />
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/login" element={<Login />} />
@@ -65,10 +72,17 @@ function App() {
             // </ProtectRoute>
           }
         />
+        <Route
+          path="/admin/movies"
+          element={
+            // <ProtectRoute>
+            <AdminMovies />
+            // </ProtectRoute>
+          }
+        />
       </Routes>
-       {/* {!isAdminPanel && <Footer />} */}
+      {/* {!isAdminPanel && <Footer />} */}
     </div>
-
   );
 }
 

@@ -1,9 +1,12 @@
 import { useRef } from "react";
 import { ImageIcon, FileVideo2 } from "lucide-react";
 import { useSelector } from "react-redux";
+import { closeModal } from "../../../redux/Global_modal";
+import { useDispatch } from "react-redux";
 
 const AdminUpload = () => {
-  const {isOpened} = useSelector(state => state?.modal)
+  const { isOpened } = useSelector((state) => state?.modal);
+  const dispatch = useDispatch();
 
   const bannerInputRef = useRef(null);
   const thumbnailInputRef = useRef(null);
@@ -11,7 +14,13 @@ const AdminUpload = () => {
   const handleClick = (inputRef) => {
     inputRef.current.click();
   };
-  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(closeModal()); // close after we get some response from server
+  };
+
   return (
     isOpened && (
       <div className=" bg-[#0F172A] text-white fixed top-0 p-2 left-0 z-100 w-screen h-screen flex justify-center items-center ">
@@ -206,6 +215,7 @@ const AdminUpload = () => {
             {/* <!-- Submit Button --> */}
             <div class="">
               <button
+                onClick={(e) => handleSubmit(e)}
                 type="submit"
                 className="cursor-pointer bg-blue-600 p-2 rounded text-sm font-semibold "
               >
