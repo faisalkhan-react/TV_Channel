@@ -24,6 +24,9 @@ const Navbar = () => {
         <Link to="/health&fitness" className="hover:text-[#1e88e5] transition">
           Health & Fitness Series
         </Link>
+        <Link to="/educationalseries" className="hover:text-[#1e88e5] transition">
+          Educational Series
+        </Link>
       </div>
 
       <div className="flex gap-3 items-center">
