@@ -66,7 +66,7 @@ function App() {
           }
         />
       </Routes>
-       {!isAdminPanel && <Footer />}
+       {/* {!isAdminPanel && <Footer />} */}
     </div>
 
   );
