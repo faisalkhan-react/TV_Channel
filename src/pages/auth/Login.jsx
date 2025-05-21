@@ -28,7 +28,7 @@ const Login = () => {
     // axios - login
 
     try {
-      const response = await fetch("https://tv-server-1.onrender.com/", {
+      const response = await fetch("https://tv-server-1.onrender.com/api/user/send-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const Login = () => {
         setSuccessMessage("✅ OTP verified successfully!");
         setError("");
         dispatch(login(fullPhoneNumber)); // Redux login
-        localStorage.setItem('user', data)
+        localStorage.setItem('user', JSON.stringify(data)); // Store user data in local storage
         navigate("/"); // Redirect to home or any other page
       } else {
         setError(data.message || "❌ Incorrect OTP");

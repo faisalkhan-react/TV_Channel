@@ -20,7 +20,7 @@ const SubsCard = ({ plan, quality, device, price, month, planKey, handleClick })
         {/* Button */}
         <div className="flex justify-center mt-4">
           <button 
-            onClick={() => handleClick(planKey)}
+            onClick={() => handleClick(planKey, plan, device)}
               className="cursor-pointer bg-gradient-to-br from-blue-800 to-purple-600 text-white px-6 py-2 rounded-xl transition duration-200 hover:brightness-110">
             Pay Rs {price}
           </button>

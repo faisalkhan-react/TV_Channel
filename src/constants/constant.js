@@ -1,6 +1,7 @@
 export const BASE_URL = "https://tv-server-1.onrender.com";
 
 
+
 export const subData = [
     {
         plan: "Basic Plan",
@@ -17,7 +18,7 @@ export const subData = [
         price: "299",
         month: "3 month",
         planKey: "standard"
-    }, {
+    }, {    
         plan: "Premium Plan",
         quality: "2K",
         device: "Mobile, Website, TAB and Smart TV",

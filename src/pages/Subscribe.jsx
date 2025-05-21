@@ -7,10 +7,9 @@ import { api } from "../api/config.js";
 import { useSelector } from "react-redux";
 const Subscribe = () => {
   const {phoneNumber} = useSelector((state) => state.auth);
-  const handleCreateCheckoutSession = (planKey) => {
+  const handleCreateCheckoutSession = (planKey, plan, device) => {
     // Handle the click event for the subscription card
-    console.log(`Clicked on plan: ${planKey}`);
-
+    console.log(`Clicked on plan: ${planKey} with phone : ${phoneNumber}`);
     createCheckoutSession(planKey)
       .then((data ) => {
         console.log("Checkout session created:", data);
@@ -19,19 +18,20 @@ const Subscribe = () => {
           key: data.key,
           amount: data.amount,
           currency: data.currency,
-          name: "Subscription",
-          description: "Subscription for TV",
+          name: plan,
+          description: device,
           order_id: data.orderId,
           prefill: {
             name: "",
             email: "",
-            contact: phoneNumber
+            contact: ""
           },
           handler: async function (response) {
             await api.post('/api/checkout/verify-payment', {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
+              planKey: planKey,
             })
               .then((res) => {
                 if (res.status === 200) {
