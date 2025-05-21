@@ -4,9 +4,9 @@ import { data } from "react-router-dom";
 import { subData } from '../constants/constant.js'
 import { createCheckoutSession } from "../api/subscription.js";
 import { api } from "../api/config.js";
-
+import { useSelector } from "react-redux";
 const Subscribe = () => {
-
+  const {phoneNumber} = useSelector((state) => state.auth);
   const handleCreateCheckoutSession = (planKey) => {
     // Handle the click event for the subscription card
     console.log(`Clicked on plan: ${planKey}`);
@@ -22,6 +22,11 @@ const Subscribe = () => {
           name: "Subscription",
           description: "Subscription for TV",
           order_id: data.orderId,
+          prefill: {
+            name: "",
+            email: "",
+            contact: phoneNumber
+          },
           handler: async function (response) {
             await api.post('/api/checkout/verify-payment', {
               razorpay_payment_id: response.razorpay_payment_id,
