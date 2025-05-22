@@ -40,13 +40,16 @@ const HomeSlider = ({ title }) => {
             {[...Array(8)].map((_, index) => (
               <div
                 key={index}
-                className="min-w-[180px] h-[270px] rounded-lg shadow hover:shadow-lg overflow-hidden"
+                className="min-w-[180px] group h-[270px] relative rounded-lg shadow hover:shadow-lg overflow-hidden"
               >
                 <img
                   src={Kesari}
                   alt={title}
-                  className=" cursor-pointer  w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
+                  className=" cursor-pointer w-full h-full object-cover 
+                  transform transition-transform duration-300 group group-hover:scale-105 z-0
+                  "
                 />
+                <div className="absolute inset-0 bg-black opacity-30 "></div>
               </div>
             ))}
           </div>
