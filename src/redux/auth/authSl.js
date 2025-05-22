@@ -4,9 +4,9 @@ import { api } from "../../api/config";
 // Send OTP
 export const sendOtp = createAsyncThunk("sendOtp", async (phoneNumber) => {
   console.log(phoneNumber);
-  const res = await api.post("/api/user/send-otp", { phoneNumber });
+  const res = await api.post("/api/user/send-otp", phoneNumber); // fix: should be an object
   console.log(res);
-  return res.data; // assuming Axios
+  return res.data;
 });
 
 // Verify OTP
@@ -14,11 +14,11 @@ export const verifyOtp = createAsyncThunk(
   "verifyOtp",
   async ({ phoneNumber, otp }) => {
     const res = await api.post("/api/user/verify-otp", { phoneNumber, otp });
-    return res.data; // token, message, success
+    console.log(res.data);
+    return res.data;
   }
 );
 
-// Slice
 const otpSlice = createSlice({
   name: "auth",
   initialState: {
@@ -26,12 +26,20 @@ const otpSlice = createSlice({
     error: null,
     otpSent: false,
     verified: false,
-    data: null, // holds token, message, success
+    data: null,
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.otpSent = false;
+      state.verified = false;
+      state.data = null;
+      localStorage.removeItem("user"); // Clear localStorage if token or user info is saved
+    },
+  },
   extraReducers: (builder) => {
     builder
-      // sendOtp
       .addCase(sendOtp.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -45,7 +53,6 @@ const otpSlice = createSlice({
         state.error = action.error.message;
       })
 
-      // verifyOtp
       .addCase(verifyOtp.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -53,7 +60,7 @@ const otpSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.verified = true;
-        state.data = action.payload; // contains token, message, success
+        state.data = action.payload;
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;
@@ -61,5 +68,7 @@ const otpSlice = createSlice({
       });
   },
 });
+
+export const { logout } = otpSlice.actions;
 
 export default otpSlice.reducer;

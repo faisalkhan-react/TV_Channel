@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/authSlice";
+import { sendOtp, verifyOtp } from "../../redux/auth/authSl"; // adjust path if needed
+// import { login } from "../../redux/authSlice"; // optional: if you want login state
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,29 +26,14 @@ const Login = () => {
     e.preventDefault();
     const fullPhoneNumber = "+91" + phone.phoneNumber.trim();
 
-    // axios - login
-
     try {
-      const response = await fetch("https://tv-server-1.onrender.com/api/user/send-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ phoneNumber: fullPhoneNumber }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setShowOtpInput(true);
-        setError("");
-        setSuccessMessage("OTP sent successfully!");
-      } else {
-        setError(data.message || "Failed to send OTP");
-        setSuccessMessage("");
-      }
+      await dispatch(sendOtp({ phoneNumber: fullPhoneNumber })).unwrap();
+      setShowOtpInput(true);
+      setError("");
+      setSuccessMessage("OTP sent successfully!");
     } catch (err) {
       console.error("Send OTP error:", err);
-      setError("Something went wrong");
+      setError(err.message || "Failed to send OTP");
       setSuccessMessage("");
     }
   };
@@ -63,37 +49,19 @@ const Login = () => {
     const fullPhoneNumber = "+91" + phone.phoneNumber.trim();
 
     try {
-      const response = await fetch(
-        "https://tv-server-1.onrender.com/api/user/verify-otp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            phoneNumber: fullPhoneNumber,
-            otp: otp,
-          }),
-        }
-      );
+      const result = await dispatch(
+        verifyOtp({ phoneNumber: fullPhoneNumber, otp })
+      ).unwrap();
 
-      const data = await response.json();
-      console.log(data)
+      setSuccessMessage("✅ OTP verified successfully!");
+      setError("");
+      localStorage.setItem("user", JSON.stringify(result)); // Store token, message, etc.
 
-      if (response.ok) {
-        setSuccessMessage("✅ OTP verified successfully!");
-        setError("");
-        localStorage.setItem("user", data?.token);
-        dispatch(login(fullPhoneNumber)); // Redux login
-        localStorage.setItem('user', JSON.stringify(data)); // Store user data in local storage
-        navigate("/"); // Redirect to home or any other page
-      } else {
-        setError(data.message || "❌ Incorrect OTP");
-        setSuccessMessage("");
-      }
+      // dispatch(login(fullPhoneNumber)); // if you're using this
+      navigate("/");
     } catch (err) {
       console.error("Verify OTP error:", err);
-      setError("Something went wrong during OTP verification");
+      setError(err.message || "❌ Incorrect OTP");
       setSuccessMessage("");
     }
   };
