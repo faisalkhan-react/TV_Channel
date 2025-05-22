@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <div
       className={`fixed top-0 left-0 w-full transition-all duration-300 ${
-        !scrolled ? "bg-black bg-opacity-100" : "bg-[rgba(0,0,0,0.5)]"
+        !scrolled ? "bg-[rgba(0,0,0,0.3)]" : "bg-[rgba(0,0,0,1)]"
       } p-4 flex justify-between items-center z-50 text-white`}
     >
       {/* Logo */}
