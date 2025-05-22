@@ -27,6 +27,8 @@ import AdminSeries from "./pages/admin/AdminSeries.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import AdminSeriesUpload from "./pages/admin/components/AdminSeriesUpload.jsx";
 import VideoPlayer from "./pages/user/VideoPlayerPage.jsx";
+import AdminShows from "./pages/admin/AdminShows.jsx";
+import AdminShowsUpload from "./pages/admin/components/AdminShowsUpload.jsx";
 
 function App() {
   const location = useLocation();
@@ -102,7 +104,7 @@ function App() {
             // </ProtectRoute>
           }
         />
-        <Route
+          <Route
           path="/admin/series/upload"
           element={
             // <ProtectRoute>
@@ -110,6 +112,23 @@ function App() {
             // </ProtectRoute>
           }
         />
+        <Route
+          path="/admin/shows"
+          element={
+            // <ProtectRoute>
+            <AdminShows />
+            // </ProtectRoute>
+          }
+        />
+        <Route
+          path="/admin/shows/upload"
+          element={
+            // <ProtectRoute>
+            <AdminShowsUpload />
+            // </ProtectRoute>
+          }
+        />
+      
         <Route
           path="/admin/users"
           element={
