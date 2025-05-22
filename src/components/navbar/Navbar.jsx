@@ -29,7 +29,7 @@ const Navbar = () => {
     >
       {/* Logo */}
       <div className="">
-        <h2 className="font-semibold text-lg text-blue-500">
+        <h2 className="font-semibold text-lg text-[#2162ca]">
           <Link to="/">Chitramcinema</Link>
         </h2>
       </div>
@@ -100,12 +100,12 @@ const Navbar = () => {
 
       <div className="button flex justify-end items-center gap-2 text-white">
         <div className="space-x-2">
-          <button className="hidden sm:block bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
+          <button className="hidden sm:block bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
             <Link to="/subscribe">Subscribe</Link>
           </button>
         </div>
 
-        <button className="bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold ">
+        <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold ">
           Login
         </button>
         <div className="">

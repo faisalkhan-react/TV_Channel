@@ -20,7 +20,7 @@ const HomeSlider = ({ title }) => {
         <div className="relative shadow-md">
           <div className="flex justify-between items-center mb-4">
             <p className="text-xl font-semibold">{title}</p>
-            <button className="cursor-pointer w-20 text-xs h-6 rounded-xl bg-blue-500 text-white">
+            <button className="cursor-pointer w-20 text-xs h-6 rounded-xl bg-[#2162ca] text-white">
               View All
             </button>
           </div>
@@ -28,7 +28,7 @@ const HomeSlider = ({ title }) => {
           {/* Scroll Arrows */}
           <button
             onClick={scrollLeft}
-            className=" cursor-pointer absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-opacity-70 bg-blue-500 text-white p-2 rounded-full shadow-md"
+            className=" cursor-pointer absolute left-0 top-1/2 transform-translate-y-1/2 z-10 bg-opacity-70 bg-[#2162ca] text-white p-2 rounded-full shadow-md"
           >
             <ChevronLeft size={24} />
           </button>
@@ -56,7 +56,7 @@ const HomeSlider = ({ title }) => {
 
           <button
             onClick={scrollRight}
-            className="cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-opacity-70 bg-blue-500 text-white p-2 rounded-full shadow-md"
+            className="cursor-pointer absolute right-0 top-1/2 transform-translate-y-1/2 z-10 bg-opacity-70 bg-[#2162ca] text-white p-2 rounded-full shadow-md"
           >
             <ChevronRight size={24} />
           </button>
