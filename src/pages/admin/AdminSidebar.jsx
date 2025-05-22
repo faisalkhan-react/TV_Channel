@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  LayoutDashboard ,
   Clapperboard,
   Film,
   Tv,
@@ -15,14 +16,14 @@ const AdminSidebar = () => {
     <div className="flex">
       <div className="p-8 bg-[#0a142af5] text-white h-screen w-[300px]">
         <div>
-          <h2 className="font-semibold text-2xl">Chitramcinema</h2>
+          <Link to='/' className="font-semibold text-2xl">Chitramcinema</Link>
         </div>
         <div className="space-y-2 mt-6 ">
           <Link
             to="/admin/dashboard"
             className="flex space-x-3 bg-[#1e293b] w-full p-4 rounded-xl  cursor-pointer"
           >
-            <Clapperboard />
+            <LayoutDashboard  />
             <p>Dashboard</p>
           </Link>
           <Link

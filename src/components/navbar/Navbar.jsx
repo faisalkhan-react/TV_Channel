@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
 import { Link } from "react-router-dom";
@@ -8,14 +9,27 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, phoneNumber } = useSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [scrolled, setScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="p-4 flex justify-between items-center z-50">
+    <div
+      className={`fixed top-0 left-0 w-full transition-all duration-300 ${
+        !scrolled ? "bg-[rgba(0,0,0,0.3)]" : "bg-[rgba(0,0,0,1)]"
+      } p-4 flex justify-between items-center z-50 text-white`}
+    >
       {/* Logo */}
       <div className="">
-        <h2 className="font-semibold text-lg">
+        <h2 className="hidden sm:block font-semibold text-sm md:text-md lg:text-lg text-[#2162ca]">
           <Link to="/">Chitramcinema</Link>
         </h2>
       </div>
@@ -29,17 +43,17 @@ const Navbar = () => {
         </nav>
       </div>
 
-      <div className="">
-        <button className="mr-2">
-          <div className="flex items-center bg-gray-200 rounded-md p-1 px-2">
+      <div className="md:w-[300px] mr-2">
+        <button className="mr-2 w-full">
+          <div className="flex items-center justify-between bg-gray-200 h-7 w-full  rounded-md p-1 px-0.5 lg:px-2">
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
-              className="text-sm text-gray-500 outline-none"
+              className="text-xs text-gray-500 outline-none"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search size={18} />
+            <Search className="size-4 md:size-5 text-gray-600" />
           </div>
         </button>
       </div>
@@ -86,17 +100,17 @@ const Navbar = () => {
 
       <div className="button flex justify-end items-center gap-2 text-white">
         <div className="space-x-2">
-          <button className="hidden sm:block bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold">
+          <button className="hidden sm:block bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
             <Link to="/subscribe">Subscribe</Link>
           </button>
         </div>
 
-        <button className="bg-blue-500 py-1.5 px-3 rounded text-xs font-semibold ">
-          Login
+        <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold ">
+          <Link to="/login">Login</Link>
         </button>
         <div className="">
           <button
-            className="lg:hidden flex justify-center items-center text-black"
+            className="lg:hidden flex justify-center items-center text-white"
             onClick={() => setIsSidebarOpen(true)}
           >
             <Menu className="w-6 h-6" />
