@@ -1,25 +1,44 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/authSlice";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/auth/authSl"; // Update the path if needed
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
-import { useState } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, phoneNumber } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅ This line was missing in your case
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
 
+    const checkLoginStatus = () => {
+      const user = localStorage.getItem("user");
+      setIsLoggedIn(!!user);
+    };
+
+    checkLoginStatus(); // Run on mount
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("storage", checkLoginStatus); // update on tab change
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("storage", checkLoginStatus);
+    };
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout()); // If you don't have this reducer, remove it or make a basic one
+    localStorage.removeItem("user"); // Remove user data
+    setIsLoggedIn(false); // Update state
+    navigate("/login"); // Redirect to login
+  };
 
   return (
     <div
@@ -28,13 +47,14 @@ const Navbar = () => {
       } p-4 flex justify-between items-center z-50 text-white`}
     >
       {/* Logo */}
-      <div className="">
+      <div>
         <h2 className="hidden sm:block font-semibold text-sm md:text-md lg:text-lg text-[#2162ca]">
           <Link to="/">Chitramcinema</Link>
         </h2>
       </div>
 
-      <div className="hidden lg:flex md:flex-1 justify-center items-center ">
+      {/* Nav Links */}
+      <div className="hidden lg:flex md:flex-1 justify-center items-center">
         <nav className="flex gap-4 text-md">
           <Link to="/">Home</Link>
           <Link to="/movies">Movies</Link>
@@ -43,6 +63,7 @@ const Navbar = () => {
         </nav>
       </div>
 
+      {/* Search Box */}
       <div className="md:w-[300px] mr-2">
         <button className="mr-2 w-full">
           <div className="flex items-center justify-between bg-gray-200 h-7 w-full  rounded-md p-1 px-0.5 lg:px-2">
@@ -58,7 +79,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Nav Sections */}
+      {/* Sidebar */}
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 text-white">
           <div className="w-64 bg-[#0F172A] h-full p-6">
@@ -68,8 +89,7 @@ const Navbar = () => {
                 <X className="w-6 h-6" />
               </button>
             </div>
-
-            <nav className="flex flex-col gap-4 text-md  ">
+            <nav className="flex flex-col gap-4 text-md">
               <Link to="/" onClick={() => setIsSidebarOpen(false)}>
                 Home
               </Link>
@@ -96,8 +116,7 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Buttons */}
-
+      {/* Login/Logout Button */}
       <div className="button flex justify-end items-center gap-2 text-white">
         <div className="space-x-2">
           <button className="hidden sm:block bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
@@ -105,10 +124,20 @@ const Navbar = () => {
           </button>
         </div>
 
-        <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold ">
-          <Link to="/login">Login</Link>
-        </button>
-        <div className="">
+        {isLoggedIn ? (
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 py-1.5 px-3 rounded text-xs font-semibold"
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
+            <Link to="/login">Login</Link>
+          </button>
+        )}
+
+        <div>
           <button
             className="lg:hidden flex justify-center items-center text-white"
             onClick={() => setIsSidebarOpen(true)}
