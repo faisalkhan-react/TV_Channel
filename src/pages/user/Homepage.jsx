@@ -40,7 +40,7 @@ const Homepage = () => {
 
       {/* trending */}
 
-      <div className="p-4 bg-black">
+      <div className="p-2 lg:p-4 bg-black ">
         <HomeSlider title="Trending" />
         <HomeSlider title="New Realease" />
         <HomeSlider title="Featured" />

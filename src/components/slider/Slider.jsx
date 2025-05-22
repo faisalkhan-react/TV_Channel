@@ -14,12 +14,14 @@ const HomeSlider = ({ title }) => {
   };
 
   return (
-    <div className="font-semibold my-5">
+    <div className="font-semibold my-3 lg:my-5 flex justify-center items-center ">
       {/* Trending Section */}
       <div className="w-full">
         <div className="relative shadow-md">
           <div className="flex justify-between items-center mb-4">
-            <p className="text-xl font-semibold">{title}</p>
+            <p className="text-sm md:text-md lg:text-lg font-semibold">
+              {title}
+            </p>
             <button className="cursor-pointer w-20 text-xs h-6 rounded-xl bg-[#2162ca] text-white">
               View All
             </button>
@@ -30,12 +32,12 @@ const HomeSlider = ({ title }) => {
             onClick={scrollLeft}
             className=" cursor-pointer absolute left-0 top-1/2 transform-translate-y-1/2 z-10 bg-opacity-70 bg-[#2162ca] text-white p-2 rounded-full shadow-md"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft className="size-4 md:size-5 lg:size-6" />
           </button>
 
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto overflow-y-hidden space-x-10 px-4 hide-scrollbar scroll-smooth"
+            className="flex overflow-x-auto overflow-y-hidden  space-x-5 md:space-x-8 lg:space-x-10 px-4 hide-scrollbar scroll-smooth"
           >
             {[...Array(8)].map((_, index) => (
               <div
@@ -63,7 +65,7 @@ const HomeSlider = ({ title }) => {
             onClick={scrollRight}
             className="cursor-pointer absolute right-0 top-1/2 transform-translate-y-1/2 z-10 bg-opacity-70 bg-[#2162ca] text-white p-2 rounded-full shadow-md"
           >
-            <ChevronRight size={24} />
+            <ChevronRight className="size-4 md:size-5 lg:size-6" />
           </button>
         </div>
       </div>
