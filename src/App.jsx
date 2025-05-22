@@ -36,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
+        <Route path="/adminupload" element={<AdminUpload />} />
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/tnc" element={<TermsAndConditions />} />

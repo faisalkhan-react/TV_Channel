@@ -78,10 +78,12 @@ const Login = () => {
       );
 
       const data = await response.json();
+      console.log(data)
 
       if (response.ok) {
         setSuccessMessage("✅ OTP verified successfully!");
         setError("");
+        localStorage.setItem("user", data?.token);
         dispatch(login(fullPhoneNumber)); // Redux login
         localStorage.setItem('user', JSON.stringify(data)); // Store user data in local storage
         navigate("/"); // Redirect to home or any other page
