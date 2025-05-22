@@ -45,7 +45,7 @@ const Navbar = () => {
 
       <div className="md:w-[300px] mr-2">
         <button className="mr-2 w-full">
-          <div className="flex items-center justify-between px-2 bg-gray-200 h-7 w-full  rounded-md p-1 px-0.5 lg:px-2">
+          <div className="flex items-center justify-between bg-gray-200 h-7 w-full  rounded-md p-1 px-0.5 lg:px-2">
             <input
               type="text"
               placeholder="Search"
