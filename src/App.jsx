@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,13 +31,25 @@ import AdminShows from "./pages/admin/AdminShows.jsx";
 import AdminShowsUpload from "./pages/admin/components/AdminShowsUpload.jsx";
 import AdminAnlytics from "./pages/admin/AdminAnlytics.jsx";
 import AdminVendor from "./pages/admin/AdminVendor.jsx";
+import AdminMovieUpload from "./pages/admin/components/AdminMovieUpload.jsx";
+import { setUser } from "./redux/auth/authSl.js";
+import { useDispatch } from "react-redux";
+import IsAdmin from "./components/isAdmin.jsx";
 
 function App() {
   const location = useLocation();
   const isAdminPanel = location.pathname.startsWith("/admin");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      dispatch(setUser(parsedUser));
+    }
+  }, []);
   return (
     <div className="App">
-      <AdminUpload />
       {!isAdminPanel && <Navbar />}
 
       <Routes>
@@ -62,8 +74,22 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/verify-otp" element={<OtpVerification />} />
+        <Route
+          path="/login"
+          element={
+            <ProtectRoute>
+              <Login />
+            </ProtectRoute>
+          }
+        />
+        <Route
+          path="/verify-otp"
+          element={
+            <ProtectRoute>
+              <OtpVerification />
+            </ProtectRoute>
+          }
+        />
 
         {/*  Admin routes */}
         <Route
@@ -74,85 +100,86 @@ function App() {
             // </ProtectRoute>
           }
         />
-        <Route
-          path="/admin"
-          element={
-            // <ProtectRoute>
-            <AdminLogin />
-            // </ProtectRoute>
-          }
-        />
+        <Route path="/admin" element={<AdminLogin />} />
         <Route
           path="/admin/dashboard"
           element={
-            // <ProtectRoute>
-            <AdminPanel />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminPanel />
+            </IsAdmin>
           }
         />
         <Route
           path="/admin/movies"
           element={
-            // <ProtectRoute>
-            <AdminMovies />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminMovies />
+            </IsAdmin>
+          }
+        />
+        <Route
+          path="/admin/movies/upload"
+          element={
+            <IsAdmin>
+              <AdminMovieUpload />
+            </IsAdmin>
           }
         />
         <Route
           path="/admin/series"
           element={
-            // <ProtectRoute>
-            <AdminSeries />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminSeries />
+            </IsAdmin>
           }
         />
-          <Route
+        <Route
           path="/admin/series/upload"
           element={
-            // <ProtectRoute>
-            <AdminSeriesUpload />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminSeriesUpload />
+            </IsAdmin>
           }
         />
         <Route
           path="/admin/shows"
           element={
-            // <ProtectRoute>
-            <AdminShows />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminShows />
+            </IsAdmin>
           }
         />
         <Route
           path="/admin/shows/upload"
           element={
-            // <ProtectRoute>
-            <AdminShowsUpload />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminShowsUpload />
+            </IsAdmin>
           }
         />
-      
+
         <Route
           path="/admin/analytics"
           element={
-            // <ProtectRoute>
-            <AdminAnlytics />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminAnlytics />
+            </IsAdmin>
           }
         />
         <Route
           path="/admin/vendor"
           element={
-            // <ProtectRoute>
-            <AdminVendor />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminVendor />
+            </IsAdmin>
           }
         />
         <Route
           path="/admin/users"
           element={
-            // <ProtectRoute>
-            <AdminUsers />
-            // </ProtectRoute>
+            <IsAdmin>
+              <AdminUsers />
+            </IsAdmin>
           }
         />
       </Routes>

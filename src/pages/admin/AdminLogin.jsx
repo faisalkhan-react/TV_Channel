@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useDispatch } from "react-redux"; // Import useDispatch
+import { setUser } from "../../redux/auth/authSl"; // Import your Redux action
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch(); // Initialize the hook
   const navigate = useNavigate(); // Initialize the hook
 
   const handleSubmit = async (e) => {
@@ -13,12 +16,12 @@ const AdminLogin = () => {
 
     try {
       const res = await axios.post(
-        "https://tv-server-1.onrender.com/api/admin-login",
+        "https://tv-server-1.onrender.com/api/admin/admin-login",
+        // "http://localhost:4000/api/admin/admin-login",
         data
       );
-
-    
-
+      dispatch(setUser(res.data)); // Assuming you have a setUser action in your Redux slice
+      localStorage.setItem("user", JSON.stringify(res.data)); // Store user data in local storage
       // Navigate to admin dashboard
       navigate("/admin/dashboard");
     } catch (error) {
@@ -28,7 +31,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-120 bg-gray-100">
+    <div className="flex items-center justify-center h-120 bg-gray-100 h-screen">
       <div className="w-[26rem] p-10 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold text-center mb-6">
           Enter Admin Login Details

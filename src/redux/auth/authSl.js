@@ -26,15 +26,18 @@ const otpSlice = createSlice({
     error: null,
     otpSent: false,
     verified: false,
-    data: null,
+    user: null,
   },
   reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
     logout: (state) => {
       state.loading = false;
       state.error = null;
       state.otpSent = false;
       state.verified = false;
-      state.data = null;
+      state.user = null;
       localStorage.removeItem("user"); // Clear localStorage if token or user info is saved
     },
   },
@@ -60,7 +63,7 @@ const otpSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.verified = true;
-        state.data = action.payload;
+        state.user = action.payload;
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;
@@ -69,6 +72,6 @@ const otpSlice = createSlice({
   },
 });
 
-export const { logout } = otpSlice.actions;
+export const { logout, setUser } = otpSlice.actions;
 
 export default otpSlice.reducer;
