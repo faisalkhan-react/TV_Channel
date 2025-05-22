@@ -40,7 +40,12 @@ const HomeSlider = ({ title }) => {
             {[...Array(8)].map((_, index) => (
               <div
                 key={index}
-                className="min-w-[180px] group h-[270px] relative rounded-lg shadow hover:shadow-lg overflow-hidden"
+                className="min-w-[100px] group 
+                lg:h-[270px] lg:min-w-[180px]
+                md:h-[200px] md:min-w-[150px]
+                h-[150px] relative rounded-lg 
+                shadow hover:shadow-lg overflow-hidden"
+                // className="min-w-[180px] group h-[270px] relative rounded-lg shadow hover:shadow-lg overflow-hidden"
               >
                 <img
                   src={Kesari}
