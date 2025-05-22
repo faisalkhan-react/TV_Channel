@@ -26,6 +26,7 @@ import AdminMovies from "./pages/admin/AdminMovies.jsx";
 import AdminSeries from "./pages/admin/AdminSeries.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import AdminSeriesUpload from "./pages/admin/components/AdminSeriesUpload.jsx";
+import VideoPlayer from "./pages/user/VideoPlayerPage.jsx";
 
 function App() {
   const location = useLocation();
@@ -47,6 +48,15 @@ function App() {
           element={<RefundAndCancellationPolicy />}
         />
         <Route path="/contact" element={<Contact />} />
+
+        <Route
+          path="/movie/:id"
+          element={
+            // <ProtectRoute>
+            <VideoPlayer />
+            // </ProtectRoute>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
         <Route path="/verify-otp" element={<OtpVerification />} />

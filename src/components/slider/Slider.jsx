@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Kesari from "../../assets/Kesari.2019.jpg";
+import { Link } from "react-router-dom";
 
 const HomeSlider = ({ title }) => {
   const scrollRef = useRef(null);
@@ -40,7 +41,8 @@ const HomeSlider = ({ title }) => {
             className="flex overflow-x-auto overflow-y-hidden  space-x-5 md:space-x-8 lg:space-x-10 px-4 hide-scrollbar scroll-smooth"
           >
             {[...Array(8)].map((_, index) => (
-              <div
+              <Link
+                to={`/movie/${index}`}
                 key={index}
                 className="min-w-[100px] group 
                 lg:h-[270px] lg:min-w-[180px]
@@ -57,7 +59,7 @@ const HomeSlider = ({ title }) => {
                   "
                 />
                 <div className="absolute inset-0 bg-black opacity-30 "></div>
-              </div>
+              </Link>
             ))}
           </div>
 
