@@ -81,17 +81,16 @@ const AdminUpload = () => {
     // TODO: Submit to backend API
 
     // dispatch(uploadMovie(formData));
-  
-      // dispatch(closeModal());
-  
+
+    // dispatch(closeModal());
   };
 
-
   return (
-    isOpened && (
-      <div className="fixed top-0 left-0 w-screen h-full z-50 bg-[#0F172A] text-white overflow-auto p-8">
-        <div className="max-w-5xl mx-auto bg-[#1E293B] p-8 rounded-lg shadow-lg">
-          <h2 className="text-center text-3xl font-bold mb-8">Upload Movie</h2>
+    
+      isOpened && (
+      <div className="fixed top-0 left-0 w-screen h-full z-50 bg-[#f1f1f1]  overflow-auto p-8">
+        <div className="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-center text-3xl font-bold mb-8">Upload Movies</h2>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -99,7 +98,7 @@ const AdminUpload = () => {
               placeholder="Title"
               value={formData.title}
               onChange={handleInputChange}
-              className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
             />
 
             <textarea
@@ -107,7 +106,7 @@ const AdminUpload = () => {
               placeholder="Description"
               value={formData.description}
               onChange={handleInputChange}
-              className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-200  p-2 rounded border outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
             />
 
             <div className="grid grid-cols-2 gap-4">
@@ -116,14 +115,14 @@ const AdminUpload = () => {
                 placeholder="Cast (comma separated)"
                 value={formData.cast}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
               <input
                 name="director"
                 placeholder="Director"
                 value={formData.director}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
             </div>
 
@@ -133,15 +132,16 @@ const AdminUpload = () => {
                 placeholder="Trailer URL"
                 value={formData.trailerUrl}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
 
               <input
                 type="date"
                 name="releaseDate"
+                placeholder="dd--mm-yyyy"
                 value={formData.releaseDate}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500 cursor-pointer"
               />
             </div>
 
@@ -156,8 +156,12 @@ const AdminUpload = () => {
                   "Sci-Fi",
                   "Horror",
                 ].map((cat) => (
-                  <label key={cat} className="flex items-center gap-2">
+                  <label
+                    key={cat}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
                     <input
+                      className="cursor-pointer"
                       type="checkbox"
                       value={cat}
                       checked={formData.genre.includes(cat)}
@@ -179,7 +183,7 @@ const AdminUpload = () => {
                   tags: e.target.value.split(","),
                 }))
               }
-              className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
             />
 
             <div className="grid grid-cols-3 gap-4">
@@ -187,7 +191,7 @@ const AdminUpload = () => {
                 name="language"
                 value={formData.language}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600"
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 outline-none"
               >
                 {[
                   "English",
@@ -208,7 +212,7 @@ const AdminUpload = () => {
                 name="type"
                 value={formData.type}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600"
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 outline-none"
               >
                 <option value="movie">Movie</option>
                 <option value="series">Series</option>
@@ -225,7 +229,7 @@ const AdminUpload = () => {
                     placeholder={`${res} Link`}
                     value={formData.qualityLinks[res]}
                     onChange={handleInputChange}
-                    className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1  focus:ring-gray-500 outline-none"
                   />
                 ))}
               </div>
@@ -238,12 +242,16 @@ const AdminUpload = () => {
                 { label: "Featured", name: "featured" },
                 { label: "Trending", name: "trending" },
               ].map(({ label, name }) => (
-                <label key={name} className="flex items-center gap-2">
+                <label
+                  key={name}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
                   <input
                     type="checkbox"
                     name={name}
                     checked={formData[name]}
                     onChange={handleInputChange}
+                    className="cursor-pointer"
                   />
                   {label}
                 </label>
@@ -256,14 +264,14 @@ const AdminUpload = () => {
                 placeholder="Release Year"
                 value={formData.releaseYear}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
               <input
                 name="duration"
                 placeholder="Duration (e.g., 2hr 30min)"
                 value={formData.duration}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
             </div>
 
@@ -276,7 +284,7 @@ const AdminUpload = () => {
                 max={5}
                 value={formData.rating}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
               <input
                 name="views"
@@ -284,20 +292,24 @@ const AdminUpload = () => {
                 placeholder="Views"
                 value={formData.views}
                 onChange={handleInputChange}
-                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
             </div>
 
             {/* File Uploads */}
             <div className="flex gap-8 pt-4">
               <div>
-                <label className="block font-semibold mb-1">Thumbnail Url</label>
+                <label className="block font-semibold mb-1 text-center">
+                  Thumbnail
+                </label>
                 <div
-                  className="w-28 h-20 bg-gray-700 rounded-md flex flex-col justify-center items-center cursor-pointer"
+                  className="w-28 h-20 bg-gray-300 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(thumbnailInputRef)}
                 >
-                  <ImageIcon className="text-gray-300" />
-                  <span className="text-xs text-gray-300">Upload</span>
+                  <ImageIcon className="text-black" />
+                  <span className="text-xs font-semibold text-black">
+                    Upload
+                  </span>
                 </div>
                 <input
                   type="file"
@@ -309,13 +321,17 @@ const AdminUpload = () => {
               </div>
 
               <div>
-                <label className="block font-semibold mb-1">Banner Url</label>
+                <label className="block font-semibold mb-1 text-center">
+                  Banner{" "}
+                </label>
                 <div
-                  className="w-28 h-20 bg-gray-700 rounded-md flex flex-col justify-center items-center cursor-pointer"
+                  className="w-28 h-20 bg-gray-300 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(bannerInputRef)}
                 >
-                  <FileVideo2 className="text-gray-300" />
-                  <span className="text-xs text-gray-300">Upload</span>
+                  <FileVideo2 className="text-black" />
+                  <span className="text-xs text-black font-semibold">
+                    Upload
+                  </span>
                 </div>
                 <input
                   type="file"
@@ -330,7 +346,7 @@ const AdminUpload = () => {
             <div className="pt-6 flex gap-4">
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm font-semibold"
+                className="cursor-pointer bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm font-semibold text-white"
               >
                 Upload Media
               </button>
@@ -366,7 +382,7 @@ const AdminUpload = () => {
                     },
                   })
                 }
-                className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded text-sm font-semibold"
+                className="bg-red-500 hover:bg-red-700 px-6 py-2 rounded text-sm font-semibold text-white cursor-pointer"
               >
                 Cancel
               </button>
@@ -374,7 +390,8 @@ const AdminUpload = () => {
           </form>
         </div>
       </div>
-    )
+      )
+    
   );
 };
 

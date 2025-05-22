@@ -21,10 +21,11 @@ import Subscribe from "./pages/Subscribe.jsx";
 import RefundAndCancellationPolicy from "./pages/user/RefundAndCancellationPolicy.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import ProtectRoute from "./components/ProtectedRoute.jsx";
-import AdminUpload from "./pages/admin/components/AdminUpload.jsx";
+import AdminUpload from "./pages/admin/components/AdminMovieUpload.jsx";
 import AdminMovies from "./pages/admin/AdminMovies.jsx";
+import AdminSeries from "./pages/admin/AdminSeries.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
-import AdminSeries from "./pages/admin/components/AdminSeries.jsx";
+import AdminSeriesUpload from "./pages/admin/components/AdminSeriesUpload.jsx";
 
 function App() {
   const location = useLocation();
@@ -88,6 +89,14 @@ function App() {
           element={
             // <ProtectRoute>
             <AdminSeries />
+            // </ProtectRoute>
+          }
+        />
+        <Route
+          path="/admin/series/upload"
+          element={
+            // <ProtectRoute>
+            <AdminSeriesUpload />
             // </ProtectRoute>
           }
         />
