@@ -1,29 +1,95 @@
 import { useRef, useState } from "react";
 import { ImageIcon, FileVideo2 } from "lucide-react";
-import { useSelector } from "react-redux";
-import { closeModal } from "../../../redux/Global_modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+// import { uploadMovie } from "../redux/uploadSlice";
 
 const AdminUpload = () => {
   const { isOpened } = useSelector((state) => state?.modal);
-  const dispatch = useDispatch();
 
   const bannerInputRef = useRef(null);
   const thumbnailInputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleClick = (inputRef) => {
     inputRef.current.click();
   };
 
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    genre: [],
+    language: "english",
+    releaseDate: "",
+    cast: "",
+    director: "",
+    bannerUrl: null,
+    thumbnailUrl: null,
+    trailerUrl: "",
+    duration: "",
+    isPublished: false,
+    views: "",
+    rating: "",
+    isFree: false,
+    releaseYear: "",
+    type: "movie",
+    featured: false,
+    trending: false,
+    tags: [],
+    qualityLinks: {
+      "720p": "",
+      "1080p": "",
+      "2K": "",
+      "4K": "",
+    },
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name.startsWith("qualityLinks.")) {
+      const resolution = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        qualityLinks: { ...prev.qualityLinks, [resolution]: value },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+  };
+
+  const handleCheckboxChange = (e, field) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      const updated = checked
+        ? [...prev[field], value]
+        : prev[field].filter((item) => item !== value);
+      return { ...prev, [field]: updated };
+    });
+  };
+
+  const handleFileChange = (e, field) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, [field]: file }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
+    // TODO: Submit to backend API
 
-    dispatch(closeModal()); // close after we get some response from server
+    // dispatch(uploadMovie(formData));
+  
+      // dispatch(closeModal());
+  
   };
+
 
   return (
     isOpened && (
-      <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-[#0F172A] text-white overflow-auto p-8">
+      <div className="fixed top-0 left-0 w-screen h-full z-50 bg-[#0F172A] text-white overflow-auto p-8">
         <div className="max-w-5xl mx-auto bg-[#1E293B] p-8 rounded-lg shadow-lg">
           <h2 className="text-center text-3xl font-bold mb-8">Upload Movie</h2>
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -79,38 +145,27 @@ const AdminUpload = () => {
               />
             </div>
 
-            {/* <!-- Cast & Crew --> */}
-            <div class="flex-col flex">
-              <textarea
-                id="cast"
-                placeholder="Enter cast/crew
-              "
-                className="bg-[#1E293B] p-2 rounded"
-              ></textarea>
-            </div>
-
-            {/* <!-- Category Dropdown --> */}
-            <div className="">
-              <label className="font-semibold">Select Categories</label>
-              <div class="space-x-4 mt-2">
-                <label>
-                  <input type="checkbox" /> Action
-                </label>
-                <label>
-                  <input type="checkbox" /> Drama
-                </label>
-                <label>
-                  <input type="checkbox" /> Thriller
-                </label>
-                <label>
-                  <input type="checkbox" /> Romance
-                </label>
-                <label>
-                  <input type="checkbox" /> Sci-Fi
-                </label>
-                <label>
-                  <input type="checkbox" /> Horror
-                </label>
+            <div>
+              <label className="font-semibold">Genre</label>
+              <div className="flex flex-wrap gap-4 mt-2">
+                {[
+                  "Action",
+                  "Drama",
+                  "Thriller",
+                  "Romance",
+                  "Sci-Fi",
+                  "Horror",
+                ].map((cat) => (
+                  <label key={cat} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      value={cat}
+                      checked={formData.genre.includes(cat)}
+                      onChange={(e) => handleCheckboxChange(e, "genre")}
+                    />
+                    {cat}
+                  </label>
+                ))}
               </div>
             </div>
 
@@ -135,13 +190,13 @@ const AdminUpload = () => {
                 className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600"
               >
                 {[
-                  "english",
-                  "hindi",
-                  "tamil",
-                  "telugu",
-                  "malayalam",
-                  "bhojpuri",
-                  "kannada",
+                  "English",
+                  "Hindi",
+                  "Tamil",
+                  "Telugu",
+                  "Malayalam",
+                  "Bhojpuri",
+                  "Kannada",
                 ].map((lang) => (
                   <option key={lang} value={lang}>
                     {lang}
@@ -236,7 +291,7 @@ const AdminUpload = () => {
             {/* File Uploads */}
             <div className="flex gap-8 pt-4">
               <div>
-                <label className="block font-semibold mb-1">ThumbnailUrl</label>
+                <label className="block font-semibold mb-1">Thumbnail Url</label>
                 <div
                   className="w-28 h-20 bg-gray-700 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(thumbnailInputRef)}
@@ -254,7 +309,7 @@ const AdminUpload = () => {
               </div>
 
               <div>
-                <label className="block font-semibold mb-1">BannerUrl</label>
+                <label className="block font-semibold mb-1">Banner Url</label>
                 <div
                   className="w-28 h-20 bg-gray-700 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(bannerInputRef)}
@@ -274,7 +329,6 @@ const AdminUpload = () => {
 
             <div className="pt-6 flex gap-4">
               <button
-                onClick={(e) => handleSubmit(e)}
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm font-semibold"
               >

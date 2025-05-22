@@ -106,7 +106,7 @@ const Navbar = () => {
         </div>
 
         <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold ">
-          Login
+          <Link to="/login">Login</Link>
         </button>
         <div className="">
           <button

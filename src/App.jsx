@@ -24,6 +24,7 @@ import ProtectRoute from "./components/ProtectedRoute.jsx";
 import AdminUpload from "./pages/admin/components/AdminUpload.jsx";
 import AdminMovies from "./pages/admin/AdminMovies.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
+import AdminSeries from "./pages/admin/components/AdminSeries.jsx";
 
 function App() {
   const location = useLocation();
@@ -79,6 +80,14 @@ function App() {
           element={
             // <ProtectRoute>
             <AdminMovies />
+            // </ProtectRoute>
+          }
+        />
+        <Route
+          path="/admin/series"
+          element={
+            // <ProtectRoute>
+            <AdminSeries />
             // </ProtectRoute>
           }
         />

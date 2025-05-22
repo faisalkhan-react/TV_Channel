@@ -11,19 +11,19 @@ const AdminMovies = () => {
             <div>
               <h2 className="text-2xl font-semibold">Movies</h2>
             </div>
-            <div className="mt-4 border-1 border-gray-300">
+            <div className="mt-4">
               <input
                 type="search"
                 placeholder="Search"
-                className="p-2 rounded-xl outline-none"
+                className="p-2 outline-none rounded border border-gray-300"
               />
             </div>
             <div className="space-y-6 mt-6 text-md">
-              <h2 className="">Avengers Endgame</h2>
-              <h2>Avengers Endgame</h2>
-              <h2>Avengers Endgame</h2>
-              <h2>Avengers Endgame</h2>
-              <h2>Avengers Endgame</h2>
+              <h2 className="">Avengers: Endgame</h2>
+              <h2>Avengers: Infinity War</h2>
+              <h2>Avengers: Age of Ultron</h2>
+              <h2>Thor: Ragnarok</h2>
+              <h2>Captain America: WInter Soldier</h2>
             </div>
           </div>
           {/* <div className="w-1/6 bg-[#0F172A] p-8">
