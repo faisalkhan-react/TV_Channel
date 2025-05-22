@@ -59,7 +59,7 @@ const AdminUpload = () => {
             </div>
 
             {/* <!-- Category Dropdown --> */}
-            <div class="">
+            <div className="">
               <label className="font-semibold">Select Categories</label>
               <div class="space-x-4 mt-2">
                 <label>

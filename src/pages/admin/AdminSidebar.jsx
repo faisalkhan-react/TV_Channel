@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  LayoutDashboard ,
   Clapperboard,
   Film,
   Tv,
@@ -22,7 +23,7 @@ const AdminSidebar = () => {
             to="/admin/dashboard"
             className="flex space-x-3 bg-[#1e293b] w-full p-4 rounded-xl  cursor-pointer"
           >
-            <Clapperboard />
+            <LayoutDashboard  />
             <p>Dashboard</p>
           </Link>
           <Link

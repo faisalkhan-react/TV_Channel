@@ -23,6 +23,7 @@ import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import ProtectRoute from "./components/ProtectedRoute.jsx";
 import AdminUpload from "./pages/admin/components/AdminUpload.jsx";
 import AdminMovies from "./pages/admin/AdminMovies.jsx";
+import AdminUsers from "./pages/admin/AdminUsers.jsx";
 
 function App() {
   const location = useLocation();
@@ -77,6 +78,14 @@ function App() {
           element={
             // <ProtectRoute>
             <AdminMovies />
+            // </ProtectRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            // <ProtectRoute>
+            <AdminUsers />
             // </ProtectRoute>
           }
         />
