@@ -29,7 +29,7 @@ const Navbar = () => {
     >
       {/* Logo */}
       <div className="">
-        <h2 className="font-semibold text-lg text-[#2162ca]">
+        <h2 className="hidden sm:block font-semibold text-sm md:text-md lg:text-lg text-[#2162ca]">
           <Link to="/">Chitramcinema</Link>
         </h2>
       </div>
@@ -43,17 +43,17 @@ const Navbar = () => {
         </nav>
       </div>
 
-      <div className="">
-        <button className="mr-2">
-          <div className="flex items-center bg-gray-200 rounded-md p-1 px-2">
+      <div className="md:w-[300px] mr-2">
+        <button className="mr-2 w-full">
+          <div className="flex items-center justify-between px-2 bg-gray-200 h-7 w-full  rounded-md p-1 px-0.5 lg:px-2">
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
-              className="text-sm text-gray-500 outline-none"
+              className="text-xs text-gray-500 outline-none"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search size={18} />
+            <Search className="size-4 md:size-5 text-gray-600" />
           </div>
         </button>
       </div>
@@ -110,7 +110,7 @@ const Navbar = () => {
         </button>
         <div className="">
           <button
-            className="lg:hidden flex justify-center items-center text-black"
+            className="lg:hidden flex justify-center items-center text-white"
             onClick={() => setIsSidebarOpen(true)}
           >
             <Menu className="w-6 h-6" />
