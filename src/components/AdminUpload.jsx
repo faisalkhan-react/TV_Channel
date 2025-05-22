@@ -1,215 +1,374 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ImageIcon, FileVideo2 } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadMovie } from "../redux/uploadSlice";
 
 const AdminUpload = () => {
-  const {isOpened} = useSelector(state => state?.modal)
+  const { isOpened } = useSelector((state) => state?.modal);
 
   const bannerInputRef = useRef(null);
   const thumbnailInputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleClick = (inputRef) => {
     inputRef.current.click();
   };
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    genre: [],
+    language: "english",
+    releaseDate: "",
+    cast: "",
+    director: "",
+    bannerUrl: null,
+    thumbnailUrl: null,
+    trailerUrl: "",
+    duration: "",
+    isPublished: false,
+    views: 0,
+    rating: "",
+    isFree: false,
+    releaseYear: "",
+    type: "movie",
+    featured: false,
+    trending: false,
+    tags: [],
+    qualityLinks: {
+      "720p": "",
+      "1080p": "",
+      "2K": "",
+      "4K": "",
+    },
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name.startsWith("qualityLinks.")) {
+      const resolution = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        qualityLinks: { ...prev.qualityLinks, [resolution]: value },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+  };
+
+  const handleCheckboxChange = (e, field) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => {
+      const updated = checked
+        ? [...prev[field], value]
+        : prev[field].filter((item) => item !== value);
+      return { ...prev, [field]: updated };
+    });
+  };
+
+  const handleFileChange = (e, field) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, [field]: file }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // TODO: Submit to backend API
+
+    dispatch(uploadMovie(formData));
   
+      // dispatch(closeModal());
+  
+  };
+
+
   return (
     isOpened && (
-      <div className=" bg-[#0F172A] text-white fixed top-0 p-2 left-0 z-100 w-screen h-screen flex justify-center items-center ">
-        {/*-- Admin Upload Panel -->*/}
-        <div class="">
-          <h2 className="text-center font-bold text-2xl">Upload Movies</h2>
+      <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-[#0F172A] text-white overflow-auto p-8">
+        <div className="max-w-5xl mx-auto bg-[#1E293B] p-8 rounded-lg shadow-lg">
+          <h2 className="text-center text-3xl font-bold mb-8">Upload Movie</h2>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={formData.title}
+              onChange={handleInputChange}
+              className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
 
-          <form class="space-y-3 p-6">
-            {/* <!-- Title Input --> */}
-            <div class=" flex flex-col ">
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={formData.description}
+              onChange={handleInputChange}
+              className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <div className="grid grid-cols-2 gap-4">
+              <textarea
+                name="cast"
+                placeholder="Cast (comma separated)"
+                value={formData.cast}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
               <input
-                type="text"
-                id="title"
-                placeholder="Enter movie title"
-                className="bg-[#1E293B] p-2 rounded"
+                name="director"
+                placeholder="Director"
+                value={formData.director}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            {/* <!-- Description --> */}
-            <div class="flex flex-col">
-              <textarea
-                id="description"
-                placeholder="Movie description"
-                className="bg-[#1E293B] p-2 rounded"
-              ></textarea>
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                name="trailerUrl"
+                placeholder="Trailer URL"
+                value={formData.trailerUrl}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <input
+                type="date"
+                name="releaseDate"
+                value={formData.releaseDate}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
 
-            {/* <!-- Cast & Crew --> */}
-            <div class="flex-col flex">
-              <textarea
-                id="cast"
-                placeholder="Enter cast/crew
-              "
-                className="bg-[#1E293B] p-2 rounded"
-              ></textarea>
-            </div>
-
-            {/* <!-- Category Dropdown --> */}
-            <div class="">
-              <label className="font-semibold">Select Categories</label>
-              <div class="space-x-4 mt-2">
-                <label>
-                  <input type="checkbox" /> Action
-                </label>
-                <label>
-                  <input type="checkbox" /> Drama
-                </label>
-                <label>
-                  <input type="checkbox" /> Thriller
-                </label>
-                <label>
-                  <input type="checkbox" /> Romance
-                </label>
-                <label>
-                  <input type="checkbox" /> Sci-Fi
-                </label>
-                <label>
-                  <input type="checkbox" /> Horror
-                </label>
+            <div>
+              <label className="font-semibold">genre</label>
+              <div className="flex flex-wrap gap-4 mt-2">
+                {[
+                  "Action",
+                  "Drama",
+                  "Thriller",
+                  "Romance",
+                  "Sci-Fi",
+                  "Horror",
+                ].map((cat) => (
+                  <label key={cat} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      value={cat}
+                      checked={formData.genre.includes(cat)}
+                      onChange={(e) => handleCheckboxChange(e, "genre")}
+                    />
+                    {cat}
+                  </label>
+                ))}
               </div>
             </div>
 
-            {/* <!-- Language Dropdown --> */}
-            <div className="space-x-2">
-              <span className="space-x-2">
-                <label className="font-semibold ">Select Language</label>
-                <select className="bg-[#1E293B] p-2 rounded w-30">
-                  <option value="english">English</option>
-                  <option value="hindi">Hindi</option>
-                  <option value="bhojpuri">Bhojpuri</option>
-                  <option value="tamil">Tamil</option>
-                  <option value="telugu">Telugu</option>
-                  <option value="kannada">Kannada</option>
-                  <option value="malayalam">Malayalam</option>
-                </select>
-              </span>
-              {/* <!-- Free to Watch --> */}
-              <span className="space-x-2">
-                <label className="font-semibold">Free Watch ?</label>
-                <select className="bg-[#1E293B] p-2 rounded">
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                </select>
-              </span>
+            <input
+              name="tags"
+              placeholder="Tags (comma separated)"
+              value={formData.tags.join(",")}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  tags: e.target.value.split(","),
+                }))
+              }
+              className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
 
-              {/* <!-- Qualty Dropdown --> */}
-              <span className="space-x-2">
-                <label className="font-semibold"> Quality</label>
-                <select className="bg-[#1E293B] p-2 rounded ">
-                  <option value="720p">720p</option>
-                  <option value="1080p">1080p</option>
-                  <option value="2K">2K</option>
-                  <option value="4K">4K</option>
-                </select>
-              </span>
+            <div className="grid grid-cols-3 gap-4">
+              <select
+                name="language"
+                value={formData.language}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600"
+              >
+                {[
+                  "english",
+                  "hindi",
+                  "tamil",
+                  "telugu",
+                  "malayalam",
+                  "bhojpuri",
+                  "kannada",
+                ].map((lang) => (
+                  <option key={lang} value={lang}>
+                    {lang}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                name="type"
+                value={formData.type}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600"
+              >
+                <option value="movie">Movie</option>
+                <option value="series">Series</option>
+              </select>
             </div>
 
-            {/* <!-- Release Info --> */}
-            <div class="space-x-2">
-              <span className="space-x-2">
-                <label for="release-year" className="font-semibold">
-                  Release Year
-                </label>
-                <input
-                  type="text"
-                  id="release-year"
-                  placeholder="e.g., 2024"
-                  className="bg-[#1E293B] p-2 rounded w-24"
-                />
-              </span>
-
-              <span className="space-x-2 ml-2">
-                <label className="font-semibold ml-20">Duration</label>
-                <input
-                  type="text"
-                  placeholder="e.g., 2hr 15min"
-                  className="bg-[#1E293B] p-2 rounded w-32"
-                />
-              </span>
-              {/* <div>
-                <label>Views</label>
-                <input type="number" placeholder="e.g., 10000" />
-              </div> */}
-            </div>
-
-            {/* <!-- Rating --> */}
             <div>
-              <span class="space-x-2">
-                <label for="rating" className=" font-semibold">
-                  Rating
-                </label>
-                <input
-                  type="text"
-                  id="rating"
-                  placeholder="e.g., 8.5"
-                  className="bg-[#1E293B] p-2 rounded w-20"
-                />
-              </span>
-              {/* <!-- Video Link --> */}
-              <span class="space-x-2 ml-38">
-                <label for="video-link" className="font-semibold">
-                  Video Link
-                </label>
-                <input
-                  type="url"
-                  id="video-link"
-                  placeholder="https://example.com/video.mp4"
-                  required
-                  className="bg-[#1E293B] p-2 rounded"
-                />
-              </span>
+              <label className="font-semibold block mb-2">Quality Links</label>
+              <div className="grid grid-cols-2 gap-4">
+                {["720p", "1080p", "2K", "4K"].map((res) => (
+                  <input
+                    key={res}
+                    name={`qualityLinks.${res}`}
+                    placeholder={`${res} Link`}
+                    value={formData.qualityLinks[res]}
+                    onChange={handleInputChange}
+                    className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                ))}
+              </div>
             </div>
-            {/* <!-- Upload Files --> */}
-            <div class="flex space-x-10">
-              {/* Thumbnail Upload */}
-              <span>
-                <label className="font-semibold">Thumbnail</label>
-                <span
-                  className="w-26 h-20 bg-[#1E293B] rounded-md cursor-pointer flex flex-col justify-center items-center"
+
+            <div className="flex flex-wrap gap-4">
+              {[
+                { label: "Free to Watch", name: "isFree" },
+                { label: "Published", name: "isPublished" },
+                { label: "Featured", name: "featured" },
+                { label: "Trending", name: "trending" },
+              ].map(({ label, name }) => (
+                <label key={name} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name={name}
+                    checked={formData[name]}
+                    onChange={handleInputChange}
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                name="releaseYear"
+                placeholder="Release Year"
+                value={formData.releaseYear}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                name="duration"
+                placeholder="Duration (e.g., 2hr 30min)"
+                value={formData.duration}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                name="rating"
+                type="number"
+                placeholder="Rating (0-5)"
+                min={0}
+                max={5}
+                value={formData.rating}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                name="views"
+                type="number"
+                placeholder="Views"
+                value={formData.views}
+                onChange={handleInputChange}
+                className="w-full bg-[#1E293B] text-white p-2 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            {/* File Uploads */}
+            <div className="flex gap-8 pt-4">
+              <div>
+                <label className="block font-semibold mb-1">ThumbnailUrl</label>
+                <div
+                  className="w-28 h-20 bg-gray-700 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(thumbnailInputRef)}
                 >
-                  <ImageIcon className="w-6 h-6 text-slate-400" />
-                  <span className="text-slate-400 text-xs mt-1">Thumbnail</span>
-                </span>
+                  <ImageIcon className="text-gray-300" />
+                  <span className="text-xs text-gray-300">Upload</span>
+                </div>
                 <input
                   type="file"
                   accept="image/*"
                   ref={thumbnailInputRef}
                   className="hidden"
+                  onChange={(e) => handleFileChange(e, "thumbnailUrl")}
                 />
-              </span>
+              </div>
 
-              {/* Banner Upload */}
-              <span>
-                <label className="font-semibold">Banner</label>
-                <span
-                  className="w-26 h-20 bg-[#1E293B] rounded-md cursor-pointer flex flex-col justify-center items-center"
+              <div>
+                <label className="block font-semibold mb-1">BannerUrl</label>
+                <div
+                  className="w-28 h-20 bg-gray-700 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(bannerInputRef)}
                 >
-                  <FileVideo2 className="w-6 h-6 text-slate-400" />
-                  <span className="text-slate-400 text-xs mt-1">Banner</span>
-                </span>
+                  <FileVideo2 className="text-gray-300" />
+                  <span className="text-xs text-gray-300">Upload</span>
+                </div>
                 <input
                   type="file"
                   accept="image/*,video/*"
                   ref={bannerInputRef}
                   className="hidden"
+                  onChange={(e) => handleFileChange(e, "bannerUrl")}
                 />
-              </span>
+              </div>
             </div>
 
-            {/* <!-- Submit Button --> */}
-            <div class="">
+            <div className="pt-6 flex gap-4">
               <button
                 type="submit"
-                className="cursor-pointer bg-blue-600 p-2 rounded text-sm font-semibold "
+                className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm font-semibold"
               >
-                Upload Video
+                Upload Media
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setFormData({
+                    title: "",
+                    description: "",
+                    genre: [],
+                    language: "english",
+                    releaseDate: "",
+                    cast: "",
+                    director: "",
+                    bannerUrl: null,
+                    thumbnailUrl: null,
+                    trailerUrl: "",
+                    duration: "",
+                    isPublished: false,
+                    views: 0,
+                    rating: "",
+                    isFree: false,
+                    releaseYear: "",
+                    type: "movie",
+                    featured: false,
+                    trending: false,
+                    tags: [],
+                    qualityLinks: {
+                      "720p": "",
+                      "1080p": "",
+                      "2K": "",
+                      "4K": "",
+                    },
+                  })
+                }
+                className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded text-sm font-semibold"
+              >
+                Cancel
               </button>
             </div>
           </form>
