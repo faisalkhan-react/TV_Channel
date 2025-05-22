@@ -23,6 +23,7 @@ import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import ProtectRoute from "./components/ProtectedRoute.jsx";
 import AdminUpload from "./pages/admin/components/AdminUpload.jsx";
 import AdminMovies from "./pages/admin/AdminMovies.jsx";
+import VideoPlayer from "./pages/user/VideoPlayerPage.jsx";
 
 function App() {
   const location = useLocation();
@@ -43,6 +44,15 @@ function App() {
           element={<RefundAndCancellationPolicy />}
         />
         <Route path="/contact" element={<Contact />} />
+
+        <Route
+          path="/movie/:id"
+          element={
+            // <ProtectRoute>
+            <VideoPlayer />
+            // </ProtectRoute>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
         <Route path="/verify-otp" element={<OtpVerification />} />
