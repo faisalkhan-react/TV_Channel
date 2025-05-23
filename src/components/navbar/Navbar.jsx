@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/auth/authSl"; // Update the path if needed
+// import { logout } from "../../redux/auth/authSl"; // Update the path if needed
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { useSelector } from "react-redux"; // Import useSelector if you need to access the Redux state
+import { logoutAdmin } from "../../redux/auth/adminAuthSlice";
+import { logoutUser } from "../../redux/auth/authSl.js";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -13,7 +15,9 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅ This line was missing in your case
-  const { user } = useSelector((state) => state.auth); // Access the user from Redux state if needed
+  const admin = useSelector((state) => state.admin.admin);
+  const user = useSelector((state) => state.auth.user);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -35,9 +39,16 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    dispatch(logout()); // If you don't have this reducer, remove it or make a basic one
-    localStorage.removeItem("user"); // Remove user data
-    setIsLoggedIn(false); // Update state
+    if (admin?.token) {
+      dispatch(logoutAdmin());
+      navigate("/admin"); // Redirect to admin login
+    } else if (user?.token) {
+      dispatch(logoutUser());
+      navigate("/"); // Redirect to user login
+    }
+
+    // dispatch(logout());
+    setIsLoggedIn(false);
   };
 
   return (
@@ -109,7 +120,7 @@ const Navbar = () => {
               >
                 Health & Fitness
               </Link>
-              
+
               <button className="sm:hidden bg-blue-500 p-2 rounded text-xs font-semibold">
                 <Link to="/subscribe">Subscribe</Link>
               </button>
@@ -122,15 +133,15 @@ const Navbar = () => {
       <div className="button flex justify-end items-center gap-2 text-white">
         <div className="space-x-2">
           <button className="hidden cursor-pointer sm:block bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
-            {user?.token && user?.role === "admin" ? (
-              <Link to="/admin/dashboard">Admin</Link>
+            {admin?.token && admin?.role === "admin" ? (
+              <Link to="/admin/dashboard">Dashboard</Link>
             ) : (
               <Link to="/subscribe">Subscribe</Link>
             )}
           </button>
         </div>
 
-        {user?.token ? (
+        {user?.token || admin?.token ? (
           <button
             onClick={handleLogout}
             className="bg-red-500 py-1.5 px-3 rounded text-xs font-semibold cursor-pointer"
@@ -152,8 +163,6 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-
-      
     </div>
   );
 };

@@ -20,7 +20,7 @@ import TermsAndConditions from "./pages/user/TermsAndConditions .jsx";
 import Subscribe from "./pages/Subscribe.jsx";
 import RefundAndCancellationPolicy from "./pages/user/RefundAndCancellationPolicy.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx";
-import ProtectRoute from "./components/ProtectedRoute.jsx";
+// import ProtectRoute from "./components/ProtectedRoute.jsx";
 import AdminUpload from "./pages/admin/components/AdminMovieUpload.jsx";
 import AdminMovies from "./pages/admin/AdminMovies.jsx";
 import AdminSeries from "./pages/admin/AdminSeries.jsx";
@@ -35,156 +35,218 @@ import AdminMovieUpload from "./pages/admin/components/AdminMovieUpload.jsx";
 import { setUser } from "./redux/auth/authSl.js";
 import { useDispatch } from "react-redux";
 import IsAdmin from "./components/isAdmin.jsx";
+import UniversalRouteGuard from "./components/UniversalRouteGuard.jsx";
+
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const location = useLocation();
   const isAdminPanel = location.pathname.startsWith("/admin");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      dispatch(setUser(parsedUser));
-    }
-  }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user?.token) {
+    // const parsedUser = JSON.parse(user);
+    dispatch(setUser(user));
+  }
+
   return (
-    <div className="App">
-      {!isAdminPanel && <Navbar />}
+    <>
+      {/* <ToastContainer position="top-right" autoClose={3000} />; */}
+      <div className="App">
+        {!isAdminPanel && <Navbar />}
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/adminupload" element={<AdminUpload />} />
+          <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="/tnc" element={<TermsAndConditions />} />
+          <Route
+            path="/refund-and-cancellation"
+            element={<RefundAndCancellationPolicy />}
+          />
+          <Route path="/contact" element={<Contact />} />
 
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/adminupload" element={<AdminUpload />} />
-        <Route path="/subscribe" element={<Subscribe />} />
-        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-        <Route path="/tnc" element={<TermsAndConditions />} />
-        <Route
-          path="/refund-and-cancellation"
-          element={<RefundAndCancellationPolicy />}
-        />
-        <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/movie/:id"
+            element={
+              // <ProtectRoute>
+              <VideoPlayer />
+              // </ProtectRoute>
+            }
+          />
 
-        <Route
-          path="/movie/:id"
-          element={
-            // <ProtectRoute>
-            <VideoPlayer />
-            // </ProtectRoute>
-          }
-        />
+          <Route
+            path="/login"
+            element={
+              // <ProtectRoute>
+              <UniversalRouteGuard role="user" mode="public" redirectTo="/">
+                <Login />
+              </UniversalRouteGuard>
 
-        <Route
-          path="/login"
-          element={
-            <ProtectRoute>
-              <Login />
-            </ProtectRoute>
-          }
-        />
-        <Route
-          path="/verify-otp"
-          element={
-            <ProtectRoute>
+              //* </ProtectRoute> */}
+            }
+          />
+          <Route
+            path="/verify-otp"
+            element={
+              // <ProtectRoute>
               <OtpVerification />
-            </ProtectRoute>
-          }
-        />
+              //* </ProtectRoute> */}
+            }
+          />
 
-        {/*  Admin routes */}
-        <Route
-          path="/profile"
-          element={
-            // <ProtectRoute>
-            <Profile />
-            // </ProtectRoute>
-          }
-        />
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <IsAdmin>
-              <AdminDashboard />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/movies"
-          element={
-            <IsAdmin>
-              <AdminMovies />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/movies/upload"
-          element={
-            <IsAdmin>
-              <AdminMovieUpload />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/series"
-          element={
-            <IsAdmin>
-              <AdminSeries />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/series/upload"
-          element={
-            <IsAdmin>
-              <AdminSeriesUpload />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/shows"
-          element={
-            <IsAdmin>
-              <AdminShows />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/shows/upload"
-          element={
-            <IsAdmin>
-              <AdminShowsUpload />
-            </IsAdmin>
-          }
-        />
+          {/*  Admin routes */}
+          <Route
+            path="/profile"
+            element={
+              // <ProtectRoute>
+              <Profile />
+              // </ProtectRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="public"
+                redirectTo="/admin/dashboard"
+              >
+                <AdminLogin />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              // <IsAdmin>
+              //   <AdminDashboard />
+              // </IsAdmin>
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminDashboard />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/movies"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminMovies />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/movies/upload"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminMovieUpload />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/series"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminSeries />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/series/upload"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminSeriesUpload />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/shows"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminShows />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/shows/upload"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminShowsUpload />
+              </UniversalRouteGuard>
+            }
+          />
 
-        <Route
-          path="/admin/analytics"
-          element={
-            <IsAdmin>
-              <AdminAnlytics />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/vendor"
-          element={
-            <IsAdmin>
-              <AdminVendor />
-            </IsAdmin>
-          }
-        />
-        <Route
-          path="/admin/users"
-          element={
-            <IsAdmin>
-              <AdminUsers />
-            </IsAdmin>
-          }
-        />
-      </Routes>
-      {/* {!isAdminPanel && <Footer />} */}
-    </div>
+          <Route
+            path="/admin/analytics"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminAnlytics />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/vendor"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminVendor />
+              </UniversalRouteGuard>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <UniversalRouteGuard
+                role="admin"
+                mode="private"
+                redirectTo="/admin"
+              >
+                <AdminUsers />
+              </UniversalRouteGuard>
+            }
+          />
+        </Routes>
+        {/* {!isAdminPanel && <Footer />} */}
+      </div>
+    </>
   );
 }
 

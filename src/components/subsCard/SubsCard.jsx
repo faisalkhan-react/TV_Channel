@@ -11,7 +11,7 @@ const SubsCard = ({
 }) => {
   return (
     <div className="flex justify-center items-center ">
-      <div className="w-50 rounded-2xl shadow-lg p-5 md:h-80 md:w-70 cursor-pointer hover:shadow-lg hover:scale-105 transition-transform duration-300 bg-gradient-to-br from-[#080137] to-[#442bc3] hover:brightness-110  flex-col text-xs text-white">
+      <div className="w-50 rounded-2xl shadow-lg p-5 md:h-80 md:w-70 cursor-pointer hover:shadow-lg hover:scale-105 transition-transform duration-300 relative w-[90%] max-w-md mx-auto p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] border border-white/30 z-10 flex-col text-xs text-white">
         {/* Plan Header */}
         <div className="lg:mt-4 rounded-lg p-2 bg-gradient-to-br from-[#2b2c7c] to-[#0e6de9] text-white font-semibold text-xs">
           <p>{plan}</p>

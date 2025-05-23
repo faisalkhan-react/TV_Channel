@@ -23,6 +23,7 @@ const otpSlice = createSlice({
   name: "auth",
   initialState: {
     loading: false,
+    initialized: false,
     error: null,
     otpSent: false,
     verified: false,
@@ -31,14 +32,20 @@ const otpSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+      state.initialized = true;
     },
-    logout: (state) => {
-      state.loading = false;
-      state.error = null;
-      state.otpSent = false;
-      state.verified = false;
+    // logout: (state) => {
+    //   state.loading = false;
+    //   state.error = null;
+    //   state.otpSent = false;
+    //   state.verified = false;
+    //   state.user = null;
+    //   localStorage.removeItem("user"); // Clear localStorage if token or user info is saved
+    // },
+    logoutUser: (state) => {
       state.user = null;
-      localStorage.removeItem("user"); // Clear localStorage if token or user info is saved
+      state.initialized = true;
+      localStorage.removeItem("persist:auth");
     },
   },
   extraReducers: (builder) => {
@@ -63,15 +70,17 @@ const otpSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.verified = true;
+        state.initialized = true;
         state.user = action.payload;
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+        state.initialized = true;
       });
   },
 });
 
-export const { logout, setUser } = otpSlice.actions;
+export const { logoutUser, setUser } = otpSlice.actions;
 
 export default otpSlice.reducer;

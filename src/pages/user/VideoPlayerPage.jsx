@@ -5,7 +5,7 @@ const VideoPlayerPage = () => {
   return (
     <div className="pt-20">
       <VideoPlayer
-        videoUrl="https://dfgtyujjojolkj.s3.ap-south-1.amazonaws.com/output/folder.m3u8"
+        videoUrl="https://outputchitram.s3.ap-south-1.amazonaws.com/kannada/Movies/VIMOCHANE/1080p/VIMOCHANE_1080.m3u8"
         maxResolution={1080} // Change based on user subscription
       />
     </div>

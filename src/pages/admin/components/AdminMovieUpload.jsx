@@ -77,7 +77,6 @@ const AdminUpload = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     // TODO: Submit to backend API
 
     // dispatch(uploadMovie(formData));

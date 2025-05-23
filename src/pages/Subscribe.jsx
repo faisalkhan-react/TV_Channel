@@ -11,8 +11,6 @@ const Subscribe = () => {
   const { phoneNumber, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  console.log("User data:", user);
-
   const handleCreateCheckoutSession = (planKey, plan, device) => {
     // Check if the user is logged in
     if (!user?.token) {
@@ -24,8 +22,6 @@ const Subscribe = () => {
     // Handle the click event for the subscription card
     createCheckoutSession(planKey)
       .then((data) => {
-        console.log("Checkout session created:", data);
-
         const options = {
           key: data.key,
           amount: data.amount,
