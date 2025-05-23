@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://tv-server-1.onrender.com";
-export const BASE_URL = "http://localhost:4000";
+export const BASE_URL = "https://tv-server-1.onrender.com";
+// export const BASE_URL = "http://localhost:4000";
 
 export const subData = [
   {

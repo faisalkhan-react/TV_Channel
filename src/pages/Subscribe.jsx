@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SubsCard from "../components/subsCard/SubsCard";
 import { data } from "react-router-dom";
-import { subData } from '../constants/constant.js'
+import { subData } from "../constants/constant.js";
 import { createCheckoutSession } from "../api/subscription.js";
 import { api } from "../api/config.js";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const Subscribe = () => {
-  const {phoneNumber} = useSelector((state) => state.auth);
+  const { phoneNumber, user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const handleCreateCheckoutSession = (planKey, plan, device) => {
+    // Check if the user is logged in
+    if (!user?.token) {
+      alert("Please log in to subscribe.");
+      navigate("/login");
+      return;
+    }
+
     // Handle the click event for the subscription card
-    console.log(`Clicked on plan: ${planKey} with phone : ${phoneNumber}`);
     createCheckoutSession(planKey)
-      .then((data ) => {
+      .then((data) => {
         console.log("Checkout session created:", data);
 
         const options = {
@@ -24,15 +33,16 @@ const Subscribe = () => {
           prefill: {
             name: "",
             email: "",
-            contact: ""
+            contact: "",
           },
           handler: async function (response) {
-            await api.post('/api/checkout/verify-payment', {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-              planKey: planKey,
-            })
+            await api
+              .post("/api/checkout/verify-payment", {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                planKey: planKey,
+              })
               .then((res) => {
                 if (res.status === 200) {
                   console.log("Payment verified successfully:", res.data);
@@ -57,15 +67,13 @@ const Subscribe = () => {
         console.error("Error creating checkout session:", error);
         alert("Error creating checkout session.");
       });
-  }
-
+  };
 
   return (
     <div className=" p-10 text-2xl text-center">
       <p className="mb-10 font-bold">Choose the Best Plan for You</p>
       <div className=" flex items-center justify-evenly">
         {subData.map((data, i) => (
-
           <SubsCard
             key={i}
             plan={data.plan}

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import {logout} from '../redux/authSlice.js'
-import Homepage from '../pages/user/Homepage.jsx'
+import { logout } from "../redux/authSlice.js";
+import Homepage from "../pages/user/Homepage.jsx";
 
 const ProtectRoute = ({ children }) => {
   const location = useLocation();
@@ -23,7 +23,11 @@ const ProtectRoute = ({ children }) => {
     }
   }, [location]);
 
-  return user?.token ? <Homepage /> : <Navigate to="/login" replace />;
+  if (user?.token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 };
 
 export default ProtectRoute;

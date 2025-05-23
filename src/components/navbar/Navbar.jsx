@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/auth/authSl"; // Update the path if needed
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
+import { useSelector } from "react-redux"; // Import useSelector if you need to access the Redux state
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅ This line was missing in your case
-
+  const { user } = useSelector((state) => state.auth); // Access the user from Redux state if needed
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -37,7 +38,6 @@ const Navbar = () => {
     dispatch(logout()); // If you don't have this reducer, remove it or make a basic one
     localStorage.removeItem("user"); // Remove user data
     setIsLoggedIn(false); // Update state
-    navigate("/login"); // Redirect to login
   };
 
   return (
@@ -119,20 +119,24 @@ const Navbar = () => {
       {/* Login/Logout Button */}
       <div className="button flex justify-end items-center gap-2 text-white">
         <div className="space-x-2">
-          <button className="hidden sm:block bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
-            <Link to="/subscribe">Subscribe</Link>
+          <button className="hidden cursor-pointer sm:block bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
+            {user?.token && user?.role === "admin" ? (
+              <Link to="/admin/dashboard">Admin</Link>
+            ) : (
+              <Link to="/subscribe">Subscribe</Link>
+            )}
           </button>
         </div>
 
-        {isLoggedIn ? (
+        {user?.token ? (
           <button
             onClick={handleLogout}
-            className="bg-red-500 py-1.5 px-3 rounded text-xs font-semibold"
+            className="bg-red-500 py-1.5 px-3 rounded text-xs font-semibold cursor-pointer"
           >
             Logout
           </button>
         ) : (
-          <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold">
+          <button className="bg-[#2162ca] py-1.5 px-3 rounded text-xs font-semibold cursor-pointer">
             <Link to="/login">Login</Link>
           </button>
         )}
