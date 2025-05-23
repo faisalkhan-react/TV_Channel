@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { sendOtp, verifyOtp } from "../../redux/auth/authSl"; // adjust path if needed
-// import { login } from "../../redux/authSlice"; // optional: if you want login state
+import banner from "../../assets/ott3.webp";
+// import banner from "../../assets/smart-home-automation-innovation-technology-convenience-comfort_951586-140205.avif";
+import { sendOtp, verifyOtp } from "../../redux/auth/authSl";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -55,9 +56,7 @@ const Login = () => {
 
       setSuccessMessage("✅ OTP verified successfully!");
       setError("");
-      localStorage.setItem("user", JSON.stringify(result)); // Store token, message, etc.
-
-      // dispatch(login(fullPhoneNumber)); // if you're using this
+      localStorage.setItem("user", JSON.stringify(result));
       navigate("/");
     } catch (err) {
       console.error("Verify OTP error:", err);
@@ -67,74 +66,86 @@ const Login = () => {
   };
 
   return (
-    <div className="w-[30%] border border-indigo-600 mt-10 mb-10 mx-auto flex flex-col items-center rounded-md p-6">
-      <form onSubmit={handleSubmit} className="w-[65%]">
-        <h4 className="text-[#1e1e1e] text-xl font-bold flex justify-center p-4">
-          Login
-        </h4>
-        <hr className="mb-4 text-[#1e1e1e]" />
-        <div className="flex flex-col mb-4">
-          <label
-            htmlFor="phone"
-            className="text-sm font-bold mb-2 text-[#1e1e1e]"
-          >
-            Mobile Number
-          </label>
-          <div className="flex items-center border border-indigo-600 rounded">
-            <span className="px-2 py-4 bg-gray-200 text-[#1e1e1e] rounded-l">
-              +91
-            </span>
-            <input
-              className="text-[#1e1e1e] w-full h-6 px-2 py-4 outline-none rounded-r"
-              type="tel"
-              id="phone"
-              name="phoneNumber"
-              maxLength={10}
-              value={phone.phoneNumber}
-              onChange={adddata}
-              placeholder="Enter 10-digit number"
-            />
+    <div
+      className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${banner})`,
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black opacity-45 z-0" />
+
+      {/* Glass form */}
+      <div className="relative w-[90%] max-w-md mx-auto p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] border border-white/30 z-10">
+
+        <form onSubmit={handleSubmit} className="w-full">
+          <h2 className="text-white text-2xl font-bold text-center mb-6">
+            Login to Continue
+          </h2>
+
+          <div className="flex flex-col mb-4">
+            <label
+              htmlFor="phone"
+              className="text-sm font-semibold mb-2 text-white"
+            >
+              Mobile Number
+            </label>
+            <div className="flex items-center border border-white/30 rounded overflow-hidden bg-white/10">
+              <span className="px-3 py-3 bg-white/20 text-white text-sm">+91</span>
+              <input
+                className="w-full bg-transparent text-white px-3 py-3 outline-none placeholder:text-white/60"
+                type="tel"
+                id="phone"
+                name="phoneNumber"
+                maxLength={10}
+                value={phone.phoneNumber}
+                onChange={adddata}
+                placeholder="Enter 10-digit number"
+              />
+            </div>
           </div>
-        </div>
 
-        <button
-          type="submit"
-          className="cursor-pointer w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700"
-        >
-          Get code
-        </button>
-      </form>
-
-      {showOtpInput && (
-        <div className="w-[65%] mt-6">
-          <label
-            htmlFor="otp"
-            className="text-sm font-bold mb-2 text-[#1e1e1e]"
-          >
-            Enter OTP
-          </label>
-          <input
-            className="text-[#1e1e1e] w-full h-6 rounded border border-green-600 px-2 py-4 mt-2"
-            type="text"
-            id="otp"
-            maxLength={4}
-            value={otp}
-            onChange={handleOtpChange}
-            placeholder="Enter 4-digit OTP"
-          />
           <button
-            className="cursor-pointer w-full mt-4 bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700"
-            onClick={handleOtpVerify}
+            type="submit"
+            className="mt-2 w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-2 rounded hover:scale-[1.03] transition-all duration-300"
           >
-            Verify OTP
+            Get code
           </button>
-        </div>
-      )}
+        </form>
 
-      {successMessage && (
-        <p className="text-green-600 mt-4 font-medium">{successMessage}</p>
-      )}
-      {error && <p className="text-red-600 mt-2 font-medium">{error}</p>}
+        {showOtpInput && (
+          <div className="mt-6">
+            <label
+              htmlFor="otp"
+              className="text-sm font-semibold mb-2 text-white block"
+            >
+              Enter OTP
+            </label>
+            <input
+              className="w-full bg-transparent text-white border border-green-400 px-3 py-3 rounded mt-1 placeholder:text-white/60"
+              type="text"
+              id="otp"
+              maxLength={4}
+              value={otp}
+              onChange={handleOtpChange}
+              placeholder="Enter 4-digit OTP"
+            />
+            <button
+              onClick={handleOtpVerify}
+              className="mt-4 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold py-2 rounded hover:scale-[1.03] transition-all duration-300"
+            >
+              Verify OTP
+            </button>
+          </div>
+        )}
+
+        {successMessage && (
+          <p className="text-green-400 mt-4 font-medium text-center">{successMessage}</p>
+        )}
+        {error && (
+          <p className="text-red-400 mt-2 font-medium text-center">{error}</p>
+        )}
+      </div>
     </div>
   );
 };

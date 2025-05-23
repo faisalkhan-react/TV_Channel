@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ImageIcon, VideoIcon, ChevronDown, BookImage } from "lucide-react";
 import axios from "axios";
-import AdminSidebar from "./AdminSidebar";
-import { adminDashboardResponse } from "../../constants/constant";
-import { useDispatch } from "react-redux";
+import AdminSidebar from "./AdminSidebar.jsx";
+import { adminDashboardResponse } from "../../constants/constant.js";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../redux/Global_modal.js";
+import {
+  getDashboardData,
+  setDashboardData,
+} from "../../redux/admin/actions/dashboard/dashboardSlice.jsx";
+import { getDashboardDataApi } from "../../api/admin/dashboard.jsx";
 import {
   RevenueChart,
   SubscriptionPieChart,
@@ -20,85 +25,23 @@ import {
   ChartNoAxesCombined,
 } from "lucide-react";
 
-export default function AdminUploadPanel() {
-  const [title, setTitle] = useState("");
+export default function AdminDashboard() {
   const dispatch = useDispatch();
-
-  const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState(null);
-  const [banner, setBanner] = useState(null);
-  const [video, setVideo] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-
   const dropdownRef = useRef(null);
+  const dashboardData = useSelector((state) => state.dashboard);
 
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  useEffect(() => {
+    dispatch(getDashboardData());
+    // getDashboardDataApi().then((res) => {
+    //   dispatch(setDashboardData(res.data));
+    // });
+  }, []);
 
-  //   // Validate before proceeding
-  //   if (
-  //     !title ||
-  //     !description ||
-  //     !thumbnail ||
-  //     !video ||
-  //     !banner ||
-  //     !selectedLanguage ||
-  //     !selectedCategory
-  //   ) {
-  //     alert("Please fill all fields!");
-  //     return;
-  //   }
-
-  //   // Create FormData
-  //   const formData = new FormData();
-  //   formData.append("title", title);
-  //   formData.append("description", description);
-  //   formData.append("thumbnail", thumbnail); // must be File type
-  //   formData.append("banner", banner);
-  //   formData.append("video", video);
-  //   formData.append("language", selectedLanguage);
-  //   formData.append("category", selectedCategory);
-
-  //   try {
-  //     // Option 1: Using fetch with proper headers
-  //     const response = await fetch(
-  //       "https://tv-server-1.onrender.com/api/upload",
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //         // Don't set Content-Type header when sending FormData
-  //         // The browser will automatically set the correct Content-Type with boundary
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error(`Server responded with status: ${response.status}`);
-  //     }
-
-  //     const result = await response.json();
-  //     console.log("Upload response:", result);
-
-  //     alert("Video uploaded successfully!");
-
-  //     // Clear form
-  //     setTitle("");
-  //     setDescription("");
-  //     setThumbnail(null);
-  //     setBanner(null);
-  //     setVideo(null);
-  //     setSelectedLanguage("");
-  //     setSelectedCategory("");
-  //   } catch (error) {
-  //     console.error("Upload failed:", error);
-  //     alert(`Video upload failed: ${error.message}`);
-  //   }
-  // };
   return (
     <div className="flex ">
       <AdminSidebar />
@@ -112,7 +55,9 @@ export default function AdminUploadPanel() {
                 <div className="p-3 bg-[#d3eaea] rounded-lg">
                   <Clapperboard size={24} />
                 </div>
-                <p className="text-lg">120</p>
+                <p className="text-lg">
+                  {dashboardData?.data?.summary?.totalMovies}
+                </p>
               </div>
             </div>
 
@@ -123,7 +68,9 @@ export default function AdminUploadPanel() {
                   <FileVideo size={24} />
                 </div>
 
-                <p className="text-lg">120</p>
+                <p className="text-lg">
+                  {dashboardData?.data?.summary?.totalSeries}
+                </p>
               </div>
             </div>
 
@@ -134,17 +81,21 @@ export default function AdminUploadPanel() {
                   <User size={24} />
                 </div>
 
-                <p className="text-lg">120</p>
+                <p className="text-lg">
+                  {dashboardData?.data?.summary?.totalUsers}
+                </p>
               </div>
             </div>
 
             <div className="flex flex-col gap-1">
               <p className="text-lg">Total views</p>
               <div className="flex justify-between items-center">
-                <div className="p-3 bg-gray-100 rounded-lg">
+                <div className="p-3 bg-gray-100 rounded-lg mr-1">
                   <Eye size={24} />
                 </div>
-                <p className="text-lg">120</p>
+                <p className="text-lg">
+                  {dashboardData?.data?.summary?.totalViews}
+                </p>
               </div>
             </div>
           </div>
@@ -154,19 +105,19 @@ export default function AdminUploadPanel() {
               <div className="p-3 bg-[#ffe3e3] rounded-lg">
                 <ChartNoAxesCombined size={24} />
               </div>
-              <p className="text-lg">120</p>
+              <p className="text-lg">
+                {dashboardData?.data?.summary?.activeSubscriptions}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Charts */}
         <div className="flex mt-5 w-[90%] justify-between">
-          <RevenueChart
-            data={adminDashboardResponse.data.charts.revenueByMonth}
-          />
+          <RevenueChart data={dashboardData?.data?.charts?.revenueByMonth} />
 
           <SubscriptionPieChart
-            data={adminDashboardResponse.data.charts.subscriptionBreakdown}
+            data={dashboardData?.data?.charts?.subscriptionBreakdown}
           />
         </div>
         <div className="flex mt-5 w-[90%] justify-between"></div>

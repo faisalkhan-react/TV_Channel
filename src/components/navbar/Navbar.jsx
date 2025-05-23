@@ -54,12 +54,13 @@ const Navbar = () => {
       </div>
 
       {/* Nav Links */}
-      <div className="hidden lg:flex md:flex-1 justify-center items-center">
+      <div className="hidden lg:text-xs lg:flex md:flex-1 justify-center items-center">
         <nav className="flex gap-4 text-md">
           <Link to="/">Home</Link>
           <Link to="/movies">Movies</Link>
           <Link to="/political-series">Political Series</Link>
           <Link to="/health&fitness">Health & Fitness</Link>
+          <Link to="/education">Educational Series</Link>
         </nav>
       </div>
 
@@ -108,6 +109,7 @@ const Navbar = () => {
               >
                 Health & Fitness
               </Link>
+              
               <button className="sm:hidden bg-blue-500 p-2 rounded text-xs font-semibold">
                 <Link to="/subscribe">Subscribe</Link>
               </button>
@@ -150,6 +152,8 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+
+      
     </div>
   );
 };

@@ -47,6 +47,7 @@ const COLORS = [
 ];
 
 export function SubscriptionPieChart({ data }) {
+  console.log(data);
   return (
     <div className="bg-white p-4 rounded-xl shadow w-[29%]">
       <h2 className="text-lg font-semibold mb-2">Subscription Breakdown</h2>
@@ -62,7 +63,7 @@ export function SubscriptionPieChart({ data }) {
             labelLine={false}
             isAnimationActive={true}
           >
-            {data.map((entry, index) => (
+            {data?.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}

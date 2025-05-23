@@ -14,7 +14,7 @@ import Footer from "./components/footer/Footer.jsx";
 import Login from "./pages/auth/Login.jsx";
 import OtpVerification from "./pages/auth/OtpVerification.jsx";
 import Profile from "./pages/Profile.jsx";
-import AdminPanel from "./pages/admin/AdminPanel.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import PrivacyPolicy from "./pages/user/PrivacyPolicy.jsx";
 import TermsAndConditions from "./pages/user/TermsAndConditions .jsx";
 import Subscribe from "./pages/Subscribe.jsx";
@@ -105,7 +105,7 @@ function App() {
           path="/admin/dashboard"
           element={
             <IsAdmin>
-              <AdminPanel />
+              <AdminDashboard />
             </IsAdmin>
           }
         />

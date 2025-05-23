@@ -86,8 +86,8 @@ const AdminUpload = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-full z-50 bg-[#f1f1f1]  overflow-auto p-8">
-      <div className="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <div className="fixed top-0 left-0 w-screen h-full z-50 bg-[#0a142af5]  overflow-auto p-8">
+      <div className="max-w-5xl mx-auto bg-[#f1f1f1] p-8 rounded-lg shadow-lg">
         <h2 className="text-center text-3xl font-bold mb-8">Upload Movies</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <input

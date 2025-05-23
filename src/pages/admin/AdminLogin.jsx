@@ -1,23 +1,24 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { useDispatch } from "react-redux"; // Import useDispatch
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
+import { useDispatch, useSelector } from "react-redux"; // Import useDispatch
 import { setUser } from "../../redux/auth/authSl"; // Import your Redux action
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const user = JSON.parse(localStorage.getItem("user")) || {}; // Get user from local storage
   const dispatch = useDispatch(); // Initialize the hook
   const navigate = useNavigate(); // Initialize the hook
-
+  const location = useLocation(); // Get the current location
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { email, password };
 
     try {
       const res = await axios.post(
-        "https://tv-server-1.onrender.com/api/admin/admin-login",
-        // "http://localhost:4000/api/admin/admin-login",
+        // "https://tv-server-1.onrender.com/api/admin/admin-login",
+        "http://localhost:4000/api/admin/admin-login",
         data
       );
       dispatch(setUser(res.data)); // Assuming you have a setUser action in your Redux slice
@@ -29,6 +30,12 @@ const AdminLogin = () => {
       // Optionally show error to user
     }
   };
+
+  useEffect(() => {
+    if (user && user.role === "admin") {
+      navigate("/admin/dashboard");
+    }
+  }, []);
 
   return (
     <div className="flex items-center justify-center h-120 bg-gray-100 h-screen">

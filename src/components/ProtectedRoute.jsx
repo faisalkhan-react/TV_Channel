@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { logout } from "../redux/authSlice.js";
+import { logout } from "../redux/auth/authSl.js";
 import Homepage from "../pages/user/Homepage.jsx";
 
 const ProtectRoute = ({ children }) => {
@@ -18,6 +18,7 @@ const ProtectRoute = ({ children }) => {
     } else {
       const decodedToken = jwtDecode(accessToken);
       if (decodedToken.exp < Date.now() / 1000) {
+        alert("Session expired. Please log in again.");
         dispatch(logout());
       }
     }
