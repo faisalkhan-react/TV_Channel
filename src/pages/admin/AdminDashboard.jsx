@@ -21,7 +21,6 @@ import {
   FileVideo,
   User,
   Eye,
-  MailCheck,
   ChartNoAxesCombined,
 } from "lucide-react";
 
@@ -30,21 +29,27 @@ export default function AdminDashboard() {
   const [openMenu, setOpenMenu] = useState(null);
   const dropdownRef = useRef(null);
   const dashboardData = useSelector((state) => state.dashboard);
+  const admin = useSelector((state) => state.admin.admin);
+  const initialized = useSelector((state) => state.admin.initialized);
 
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
   useEffect(() => {
-    dispatch(getDashboardData());
-    // getDashboardDataApi().then((res) => {
-    //   dispatch(setDashboardData(res.data));
-    // });
-  }, []);
+    if (initialized && admin) {
+      dispatch(getDashboardData());
+    }
+  }, [initialized, admin]);
+
+  if (!initialized) {
+    return <p>Loading auth...</p>; // or <Spinner />
+  }
 
   return (
     <div className="flex ">
       <AdminSidebar />
+
       <div className="dashboard_home bg-[#f1f1f1] w-full p-5">
         {/* // all the stats at top */}
         <div className="flex justify-between w-[90%]">

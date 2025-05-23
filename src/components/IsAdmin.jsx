@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { logout } from "../redux/auth/authSl.js";
+// import { logout } from "../redux/auth/authSl.js";
 
 const IsAdmin = ({ children }) => {
   const location = useLocation();
@@ -14,11 +14,11 @@ const IsAdmin = ({ children }) => {
     if (user?.role === "admin") {
       const accessToken = user?.token;
       if (!accessToken) {
-        dispatch(logout());
+        // dispatch(logout());
       } else {
         const decodedToken = jwtDecode(accessToken);
         if (decodedToken.exp < Date.now() / 1000) {
-          dispatch(logout());
+          // dispatch(logout());
         }
       }
     }
