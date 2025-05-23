@@ -73,10 +73,18 @@ const Subscribe = () => {
   };
 
   return (
-    <div className=" p-10 text-2xl text-center">
-      <p className="mb-10 font-bold">Choose the Best Plan for You</p>
-      <div className=" flex items-center justify-evenly">
+    <div className=" text-center text-white pb-10 bg-[#000000f4] min-h-screen pt-40 flex items-center justify-center flex-col">
+      <p className="font-semibold mt-[-4rem] mb-4">
+        Choose the Best Plan for You
+      </p>
+      <div
+        className="flex gap-4 flex-wrap justify-center items-center
+                      "
+      >
         {subData.map((data, i) => (
+          // <div key={i} className="h-30 w-35 border">
+          //   card
+          // </div>
           <SubsCard
             key={i}
             plan={data.plan}
