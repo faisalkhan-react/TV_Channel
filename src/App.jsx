@@ -69,44 +69,20 @@ function App() {
           />
           <Route path="/contact" element={<Contact />} />
 
-          <Route
-            path="/movie/:id"
-            element={
-              // <ProtectRoute>
-              <VideoPlayer />
-              // </ProtectRoute>
-            }
-          />
+          <Route path="/movie/:id" element={<VideoPlayer />} />
 
           <Route
             path="/login"
             element={
-              // <ProtectRoute>
               <UniversalRouteGuard role="user" mode="public" redirectTo="/">
                 <Login />
               </UniversalRouteGuard>
-
-              //* </ProtectRoute> */}
             }
           />
-          <Route
-            path="/verify-otp"
-            element={
-              // <ProtectRoute>
-              <OtpVerification />
-              //* </ProtectRoute> */}
-            }
-          />
+          <Route path="/verify-otp" element={<OtpVerification />} />
 
           {/*  Admin routes */}
-          <Route
-            path="/profile"
-            element={
-              // <ProtectRoute>
-              <Profile />
-              // </ProtectRoute>
-            }
-          />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/admin"
             element={
@@ -122,9 +98,6 @@ function App() {
           <Route
             path="/admin/dashboard"
             element={
-              // <IsAdmin>
-              //   <AdminDashboard />
-              // </IsAdmin>
               <UniversalRouteGuard
                 role="admin"
                 mode="private"

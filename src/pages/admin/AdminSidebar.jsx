@@ -14,30 +14,30 @@ const AdminSidebar = () => {
 
   return (
     <div className="flex">
-      <div className="p-8 bg-[#0a142af5] text-white h-screen w-[300px]">
+      <div className="p-4 sm:p-6 bg-[#0a142af5] text-white h-screen  md:w-[300px]">
         <div>
-          <Link to="/" className="font-semibold text-2xl">
+          <Link to="/" className="font-semibold text-2xl hidden md:block">
             Chitramcinema
           </Link>
         </div>
-        <div className="space-y-2 mt-6 ">
+        <div className="space-y-2 mt-6">
           <Link
             to="/admin/dashboard"
-            className={`flex space-x-3 ${
+            className={`flex  ${
               location.pathname === "/admin/dashboard" ? "bg-[#1e293b]" : ""
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <LayoutDashboard />
-            <p>Dashboard</p>
+            <p className="hidden md:block">Dashboard</p>
           </Link>
           <Link
             to="/admin/movies"
-            className={`flex space-x-3 ${
+            className={`flex ${
               location.pathname === "/admin/movies" ? "bg-[#1e293b]" : ""
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <Clapperboard />
-            <p>Movies</p>
+            <p className="hidden md:block">Movies</p>
           </Link>
           <Link
             to="/admin/series"
@@ -46,7 +46,7 @@ const AdminSidebar = () => {
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <Film />
-            <p>Series</p>
+            <p className="hidden md:block">Series</p>
           </Link>
           <Link
             to="/admin/shows"
@@ -55,7 +55,7 @@ const AdminSidebar = () => {
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <Tv />
-            <p>Shows</p>
+            <p className="hidden md:block">Shows</p>
           </Link>
           <Link
             to="/admin/analytics"
@@ -64,7 +64,7 @@ const AdminSidebar = () => {
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <ChartNoAxesCombined />
-            <p>Analytics</p>
+            <p className="hidden md:block">Analytics</p>
           </Link>
           <Link
             to="/admin/vendor"
@@ -73,7 +73,7 @@ const AdminSidebar = () => {
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <CloudUpload />
-            <p>Vendor</p>
+            <p className="hidden md:block">Vendor</p>
           </Link>
 
           <Link
@@ -83,7 +83,7 @@ const AdminSidebar = () => {
             } w-full p-4 rounded-xl  cursor-pointer`}
           >
             <CircleUserRound />
-            <p>Users</p>
+            <p className="hidden md:block">Users</p>
           </Link>
         </div>
       </div>
