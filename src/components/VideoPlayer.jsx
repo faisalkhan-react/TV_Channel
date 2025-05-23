@@ -56,7 +56,7 @@ const VideoPlayer = ({ videoUrl, maxResolution }) => {
             <option value={-1}>Auto</option>
             {levels.map((level, index) => (
               <option key={index} value={index}>
-                {level.height}p
+                {level.height}
               </option>
             ))}
           </select>
