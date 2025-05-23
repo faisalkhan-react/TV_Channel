@@ -31,7 +31,6 @@ export default function AdminDashboard() {
   const dashboardData = useSelector((state) => state.dashboard);
   const admin = useSelector((state) => state.admin.admin);
   const initialized = useSelector((state) => state.admin.initialized);
-  console.log("dashboardData", initialized);
 
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
