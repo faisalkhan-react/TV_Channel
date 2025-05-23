@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 const Subscribe = () => {
   const { phoneNumber, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  console.log("User data:", user);
+
   const handleCreateCheckoutSession = (planKey, plan, device) => {
     // Check if the user is logged in
     if (!user?.token) {

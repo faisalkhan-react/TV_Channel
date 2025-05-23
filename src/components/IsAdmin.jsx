@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { logout } from "../redux/authSlice.js";
+import { logout } from "../redux/auth/authSl.js";
 
 const IsAdmin = ({ children }) => {
   const location = useLocation();
