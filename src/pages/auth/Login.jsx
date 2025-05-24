@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import banner from "../../assets/ott3.webp";
 // import banner from "../../assets/smart-home-automation-innovation-technology-convenience-comfort_951586-140205.avif";
 import { sendOtp, verifyOtp } from "../../redux/auth/authSl";
-
+import { setUser } from "../../redux/auth/authSl";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -56,7 +56,8 @@ const Login = () => {
 
       setSuccessMessage("✅ OTP verified successfully!");
       setError("");
-      localStorage.setItem("user", JSON.stringify(result));
+      // localStorage.setItem("user", JSON.stringify(result));
+      dispatch(setUser(result));
       navigate("/");
     } catch (err) {
       console.error("Verify OTP error:", err);
@@ -77,7 +78,6 @@ const Login = () => {
 
       {/* Glass form */}
       <div className="relative w-[90%] max-w-md mx-auto p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] border border-white/30 z-10">
-
         <form onSubmit={handleSubmit} className="w-full">
           <h2 className="text-white text-2xl font-bold text-center mb-6">
             Login to Continue
@@ -91,7 +91,9 @@ const Login = () => {
               Mobile Number
             </label>
             <div className="flex items-center border border-white/30 rounded overflow-hidden bg-white/10">
-              <span className="px-3 py-3 bg-white/20 text-white text-sm">+91</span>
+              <span className="px-3 py-3 bg-white/20 text-white text-sm">
+                +91
+              </span>
               <input
                 className="w-full bg-transparent text-white px-3 py-3 outline-none placeholder:text-white/60"
                 type="tel"
@@ -140,7 +142,9 @@ const Login = () => {
         )}
 
         {successMessage && (
-          <p className="text-green-400 mt-4 font-medium text-center">{successMessage}</p>
+          <p className="text-green-400 mt-4 font-medium text-center">
+            {successMessage}
+          </p>
         )}
         {error && (
           <p className="text-red-400 mt-2 font-medium text-center">{error}</p>

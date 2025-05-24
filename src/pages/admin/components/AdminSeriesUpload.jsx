@@ -78,7 +78,6 @@ const AdminSeries = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     // TODO: Submit to backend API
 
     // dispatch(uploadMovie(formData));
@@ -116,14 +115,14 @@ const AdminSeries = () => {
                 placeholder="Cast (comma separated)"
                 value={formData.cast}
                 onChange={handleInputChange}
-                 className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
               <input
                 name="director"
                 placeholder="Director"
                 value={formData.director}
                 onChange={handleInputChange}
-                 className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
               />
             </div>
 
@@ -142,7 +141,7 @@ const AdminSeries = () => {
                 placeholder="dd--mm-yyyy"
                 value={formData.releaseDate}
                 onChange={handleInputChange}
-               className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500 cursor-pointer"
+                className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500 cursor-pointer"
               />
             </div>
 
@@ -157,9 +156,12 @@ const AdminSeries = () => {
                   "Sci-Fi",
                   "Horror",
                 ].map((cat) => (
-                  <label key={cat} className="flex items-center gap-2 cursor-pointer">
+                  <label
+                    key={cat}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
                     <input
-                    className="cursor-pointer"
+                      className="cursor-pointer"
                       type="checkbox"
                       value={cat}
                       checked={formData.genre.includes(cat)}
@@ -181,7 +183,7 @@ const AdminSeries = () => {
                   tags: e.target.value.split(","),
                 }))
               }
- className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+              className="w-full bg-gray-200 p-2 rounded  outline-none border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
             />
 
             <div className="grid grid-cols-3 gap-4">
@@ -240,7 +242,10 @@ const AdminSeries = () => {
                 { label: "Featured", name: "featured" },
                 { label: "Trending", name: "trending" },
               ].map(({ label, name }) => (
-                <label key={name} className="flex items-center gap-2 cursor-pointer">
+                <label
+                  key={name}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
                   <input
                     type="checkbox"
                     name={name}
@@ -266,7 +271,8 @@ const AdminSeries = () => {
                 placeholder="Duration (e.g., 2hr 30min)"
                 value={formData.duration}
                 onChange={handleInputChange}
-className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"              />
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -278,14 +284,16 @@ className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-n
                 max={5}
                 value={formData.rating}
                 onChange={handleInputChange}
-className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"              />
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+              />
               <input
                 name="views"
                 type="number"
                 placeholder="Views"
                 value={formData.views}
                 onChange={handleInputChange}
-className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"              />
+                className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+              />
             </div>
 
             {/* File Uploads */}
@@ -299,7 +307,9 @@ className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-n
                   onClick={() => handleClick(thumbnailInputRef)}
                 >
                   <ImageIcon className="text-black" />
-                  <span className="text-xs font-semibold text-black">Upload</span>
+                  <span className="text-xs font-semibold text-black">
+                    Upload
+                  </span>
                 </div>
                 <input
                   type="file"
@@ -311,13 +321,17 @@ className="w-full bg-gray-200 p-2 rounded border border-gray-300 focus:outline-n
               </div>
 
               <div>
-                <label className="block font-semibold mb-1 text-center">Banner </label>
+                <label className="block font-semibold mb-1 text-center">
+                  Banner{" "}
+                </label>
                 <div
                   className="w-28 h-20 bg-gray-300 rounded-md flex flex-col justify-center items-center cursor-pointer"
                   onClick={() => handleClick(bannerInputRef)}
                 >
                   <FileVideo2 className="text-black" />
-                  <span className="text-xs text-black font-semibold">Upload</span>
+                  <span className="text-xs text-black font-semibold">
+                    Upload
+                  </span>
                 </div>
                 <input
                   type="file"

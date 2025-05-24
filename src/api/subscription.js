@@ -1,7 +1,5 @@
 import { api } from "./config.js";
 
-
-
 export const createCheckoutSession = async (planKey) => {
   try {
     const response = await api.post("/api/checkout/create-order", {
@@ -12,6 +10,4 @@ export const createCheckoutSession = async (planKey) => {
     console.error("Error creating checkout session:", error);
     throw error;
   }
-}
-
-
+};
