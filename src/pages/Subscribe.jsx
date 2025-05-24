@@ -6,6 +6,7 @@ import { createCheckoutSession } from "../api/subscription.js";
 import { api } from "../api/config.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import subscribeBg from "../assets/subscribebg2.jpg";
 
 const Subscribe = () => {
   const { phoneNumber, user } = useSelector((state) => state.auth);
@@ -69,8 +70,16 @@ const Subscribe = () => {
   };
 
   return (
-    <div className=" text-center text-white pb-10 bg-[#000000f4] min-h-screen pt-40 flex items-center justify-center flex-col">
-      <p className="font-semibold mt-[-4rem] mb-4">
+    <div
+      className=" text-center text-white pb-10 bg-[#000000f4] min-h-screen pt-40 flex items-center justify-center flex-col bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${subscribeBg})`,
+        backgroundPosition: "center center", // Ensure image is centered both ways
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* <img src={subscribeBg} alt="Subscribe Background" /> */}
+      <p className="font-semibold mt-[-4rem] mb-4 md:text-2xl ">
         Choose the Best Plan for You
       </p>
       <div
@@ -87,6 +96,7 @@ const Subscribe = () => {
             quality={data.quality}
             device={data.device}
             price={data.price}
+            
             month={data.month}
             planKey={data.planKey}
             handleClick={handleCreateCheckoutSession}
